@@ -34,6 +34,7 @@
             this.dgv1 = new System.Windows.Forms.DataGridView();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -88,11 +89,22 @@
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Filter = "Excel Worksheets 2003 (*.xls)|*.xls|,Excel Worksheets 2007 (*.xlsx)|*.xlsx";
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(93, 38);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 4;
+            this.button3.Text = "Executed";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(679, 420);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.dgv1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.textBox1);
@@ -113,6 +125,7 @@
         private System.Windows.Forms.DataGridView dgv1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Button button3;
     }
 }
 

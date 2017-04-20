@@ -6,6 +6,7 @@ using DocumentFormat.OpenXml.Spreadsheet;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -78,7 +79,7 @@ namespace CustomTariff.WinAppTest
                     tariffSeq = dr[12].ToString(),
                     tariffUnit = dr[13].ToString(),
                     dutyRate = Convert.ToDouble(dr[14]),
-                    needLicense = CheckDbNullRow(dr[15]) ? false : Convert.ToBoolean(dr[15]),
+                    needLicense = CheckDbNullRow(dr[15]),
                     ministry = dr[16].ToString(),
                     pdtClass = dr[17].ToString(),
                     customsFunc = dr[18].ToString(),
@@ -92,10 +93,10 @@ namespace CustomTariff.WinAppTest
                     filter6 = dr[26].ToString(),
                     remark1 = dr[27].ToString(),
                     remark2 = dr[28].ToString(),
-                    operationCode = dr[29].ToString(),
-                    programCode = dr[30].ToString(),
+                    operationCode = dr[30].ToString(),
+                    programCode = dr[31].ToString(),
                     createBy = "SYSTEM",
-                    createDate = DateTime.Now,
+                    createDate = DateTime.ParseExact(dr[29].ToString(), "yyyyMMdd", CultureInfo.InvariantCulture),
                     updateBy = "",
                     updateDate = DateTime.Now
                 });
@@ -106,10 +107,10 @@ namespace CustomTariff.WinAppTest
 
         private Boolean CheckDbNullRow(Object value)
         {
-            if (value == DBNull.Value)
-                return true;
-            else
+            if (value == DBNull.Value || string.IsNullOrEmpty(value.ToString()))
                 return false;
+            else
+                return true;
         }
     }
 }
