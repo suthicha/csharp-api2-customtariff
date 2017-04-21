@@ -9,7 +9,7 @@ namespace CustomTariff.WinAppTest
 {
     public class TariffController
     {
-        public void Executed(IEnumerable<ProductModel> products)
+        public void ExecImportMasterFile(IEnumerable<ProductModel> products)
         {
             using (SqlConnection conn = new SqlConnection(@"data source=.\SQLExpress;uid=sa;password=cti2016;database=editariff"))
             {
@@ -80,6 +80,42 @@ namespace CustomTariff.WinAppTest
                 {
                     trans.Rollback();
                     throw new Exception(ex.Message);
+                }
+            }
+        }
+
+        public void ExecImportTariff(IEnumerable<TariffModel> tariffs)
+        {
+            using (SqlConnection conn = new SqlConnection(@"data source=.\SQLExpress;uid=sa;password=cti2016;database=editariff"))
+            {
+                conn.Open();
+
+                var cmd = conn.CreateCommand();
+                var trans = conn.BeginTransaction();
+                cmd.Transaction = trans;
+
+                try
+                {
+                    cmd.CommandText = @"INSERT INTO TariffClasses SELECT @OldTariffCode, @TariffCode, @RefType,
+                    @Remark1, '', 'SYSTEM', GETDATE(), 'SYSTEM', GETDATE()";
+
+                    for (int i = 0; i < tariffs.Count(); i++)
+                    {
+                        var tariff = tariffs.ElementAt(i);
+
+                        cmd.Parameters.AddWithValue("@OldTariffCode", tariff.TariffCode);
+                        cmd.Parameters.AddWithValue("@TariffCode", tariff.NewTariffCode);
+                        cmd.Parameters.AddWithValue("@RefType", tariff.Extension);
+                        cmd.Parameters.AddWithValue("@Remark1", tariff.Remark);
+                        cmd.ExecuteNonQuery();
+                        cmd.Parameters.Clear();
+                    }
+
+                    trans.Commit();
+                }
+                catch
+                {
+                    trans.Rollback();
                 }
             }
         }

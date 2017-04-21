@@ -11,15 +11,17 @@ using System.Windows.Forms;
 
 namespace CustomTariff.WinAppTest
 {
-    public partial class Form1 : Form
+    public partial class Form2 : Form
     {
-        public Form1()
+        public Form2()
         {
             InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            openFileDialog1.FileName = "";
+
             var dlg = openFileDialog1.ShowDialog();
 
             if (dlg == DialogResult.OK)
@@ -30,21 +32,23 @@ namespace CustomTariff.WinAppTest
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
+            var paramObj = e.Argument as object[];
+
             try
             {
-                var paramObj = e.Argument as object[];
+                var excelController = new ExcelController();
 
                 if (Convert.ToInt32(paramObj[0]) == 0)
                 {
-                    var controller = new ExcelController();
-                    var dt = controller.Read(paramObj[1].ToString());
+                    var dt = excelController.ReadSheets(paramObj[1].ToString());
+                    var tariffs = excelController.ConvertToObjTariff(dt);
 
-                    e.Result = new object[] { 0, controller.ConvertToObjProduct(dt) };
+                    e.Result = new object[] { 0, tariffs };
                 }
                 else
                 {
                     var tariffController = new TariffController();
-                    tariffController.ExecImportMasterFile((List<ProductModel>)paramObj[1]);
+                    tariffController.ExecImportTariff((List<TariffModel>)paramObj[1]);
                     e.Result = new object[] { 1, true };
                 }
             }
@@ -57,7 +61,6 @@ namespace CustomTariff.WinAppTest
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             var resObj = e.Result as object[];
-
             if (Convert.ToInt32(resObj[0]) == 0)
             {
                 dgv1.DataSource = resObj[1];
@@ -65,19 +68,20 @@ namespace CustomTariff.WinAppTest
             }
             else
             {
-                MessageBox.Show("Execute Successfully.");
+                MessageBox.Show("Execute Successfully");
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             if (textBox1.Text == "") return;
+
             backgroundWorker1.RunWorkerAsync(new object[] { 0, textBox1.Text });
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            backgroundWorker1.RunWorkerAsync(new object[] { 1, (List<ProductModel>)dgv1.DataSource });
+            backgroundWorker1.RunWorkerAsync(new object[] { 1, (List<TariffModel>)dgv1.DataSource });
         }
     }
 }
