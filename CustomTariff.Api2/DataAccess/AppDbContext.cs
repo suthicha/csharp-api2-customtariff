@@ -16,5 +16,7 @@ namespace CustomTariff.Api2.DataAccess
 
         public DbSet<Product> Product { get; set; }
         public DbSet<TariffClass> TariffClass { get; set; }
+
+        public DbSet<ProductN> ProductN { get; set; }
     }
 }

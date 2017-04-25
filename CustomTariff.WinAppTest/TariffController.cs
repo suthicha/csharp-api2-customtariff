@@ -119,5 +119,64 @@ namespace CustomTariff.WinAppTest
                 }
             }
         }
+
+        public void ExecImportProductN(IEnumerable<ProductNModel> products)
+        {
+            using (SqlConnection conn = new SqlConnection(@"data source=.\SQLExpress;uid=sa;password=cti2016;database=editariff"))
+            {
+                conn.Open();
+
+                var cmd = conn.CreateCommand();
+                var trans = conn.BeginTransaction();
+                cmd.Transaction = trans;
+
+                try
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandTimeout = 0;
+
+                    for (int i = 0; i < products.Count(); i++)
+                    {
+                        var obj = products.ElementAt(i);
+                        cmd.CommandText = @"INSERT INTO ProductNs SELECT
+                        @companyCode, @divisionCode, @section, @formality, @typeofProduct, @partname,
+                        @spec, @fullPartname, LEFT(@madeby,15), @unit, @pdtDescriptionTH, @pdtDescriptionAddOn, @tariffCode, @tariffSeq, @tariffUnit,
+                        @dutyRate, @newTariffCode, @newTariffSeq, @newTariffUnit, @newDutyRate, @groupId, 'SYSTEM2', GETDATE(), '', '19000101'";
+
+                        cmd.Parameters.AddWithValue("@companyCode", obj.companyCode);
+                        cmd.Parameters.AddWithValue("@divisionCode", obj.divisionCode);
+                        cmd.Parameters.AddWithValue("@section", obj.section);
+                        cmd.Parameters.AddWithValue("@formality", obj.formality);
+                        cmd.Parameters.AddWithValue("@typeofProduct", obj.typeofProduct);
+                        cmd.Parameters.AddWithValue("@partname", "");
+                        cmd.Parameters.AddWithValue("@spec", "");
+                        cmd.Parameters.AddWithValue("@fullPartname", obj.fullPartname);
+                        cmd.Parameters.AddWithValue("@madeby", obj.madeby);
+                        cmd.Parameters.AddWithValue("@unit", obj.unit);
+                        cmd.Parameters.AddWithValue("@pdtDescriptionTH", obj.pdtDescriptionTH);
+                        cmd.Parameters.AddWithValue("@pdtDescriptionAddOn", obj.pdtDescriptionAddOn);
+                        cmd.Parameters.AddWithValue("@tariffCode", obj.tariffCode);
+                        cmd.Parameters.AddWithValue("@tariffSeq", obj.tariffSeq);
+                        cmd.Parameters.AddWithValue("@tariffUnit", obj.tariffUnit);
+                        cmd.Parameters.AddWithValue("@dutyRate", obj.dutyRate);
+                        cmd.Parameters.AddWithValue("@newTariffCode", obj.newTariffCode);
+                        cmd.Parameters.AddWithValue("@newTariffSeq", obj.newTariffSeq);
+                        cmd.Parameters.AddWithValue("@newTariffUnit", obj.newTariffUnit);
+                        cmd.Parameters.AddWithValue("@newDutyRate", obj.newDutyRate);
+                        cmd.Parameters.AddWithValue("@groupId", obj.id);
+
+                        cmd.ExecuteNonQuery();
+                        cmd.Parameters.Clear();
+                    }
+
+                    trans.Commit();
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+                    throw new Exception(ex.Message);
+                }
+            }
+        }
     }
 }

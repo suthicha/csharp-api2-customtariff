@@ -1,6 +1,5 @@
 ﻿using ClosedXML.Excel;
 using CustomTariff.Models;
-using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using System;
@@ -15,6 +14,8 @@ namespace CustomTariff.WinAppTest
 {
     public class ExcelController
     {
+        private CultureInfo cultureInfo = new CultureInfo("en-US");
+
         public DataTable Read(string sourceFile)
         {
             //Create a new DataTable.
@@ -44,11 +45,33 @@ namespace CustomTariff.WinAppTest
                         //Add rows to DataTable.
                         dt.Rows.Add();
                         int i = 0;
-                        foreach (IXLCell cell in row.Cells())
+
+                        var cellCount = row.CellCount();
+
+                        for (int col = 0; col < dt.Columns.Count; col++)
                         {
-                            dt.Rows[dt.Rows.Count - 1][i] = cell.Value.ToString();
+                            var cellXML = row.Cell(col + 1);
+                            var cellValue = string.Empty;
+
+                            if (cellXML.DataType == XLCellValues.DateTime)
+                            {
+                                cellValue = ((DateTime)row.Cell(col + 1).Value).ToString("yyyy.MM.dd", cultureInfo);
+                            }
+                            else
+                                cellValue = row.Cell(col + 1).RichText.ToString();
+
+                            dt.Rows[dt.Rows.Count - 1][i] = cellValue;
                             i++;
                         }
+
+                        //foreach (IXLCell cell in row.Cells())
+                        //{
+                        //    if (string.IsNullOrEmpty(cell.RichText.ToString()))
+                        //        Console.WriteLine(dt.Rows[dt.Rows.Count - 1][i].ToString());
+
+                        //    dt.Rows[dt.Rows.Count - 1][i] = cell.RichText;
+                        //    i++;
+                        //}
                     }
                 }
                 return dt;
@@ -59,7 +82,6 @@ namespace CustomTariff.WinAppTest
         {
             //Create a new DataTable.
             DataTable dt = new DataTable();
-            CultureInfo cultureInfo = new CultureInfo("en-US");
 
             //Open the Excel file using ClosedXML.
             using (XLWorkbook workBook = new XLWorkbook(sourceFile))
@@ -200,6 +222,146 @@ namespace CustomTariff.WinAppTest
             return lstTariff;
         }
 
+        public List<ProductNModel> ConvertToObjProductN(DataTable table)
+        {
+            var objProducts = new List<ProductNModel>();
+            int currentId = 0;
+
+            for (int i = 0; i < table.Rows.Count; i++)
+            {
+                var row = table.Rows[i];
+
+                if (string.IsNullOrEmpty(row[0].ToString()) &&
+                    string.IsNullOrEmpty(row[1].ToString()))
+                {
+                    var preItem = objProducts.Find(q => q.id == currentId);
+                    if (preItem == null) continue;
+
+                    objProducts.Add(new ProductNModel()
+                    {
+                        id = preItem.id,
+                        companyCode = preItem.companyCode,
+                        divisionCode = preItem.divisionCode,
+                        section = preItem.section,
+                        formality = preItem.formality,
+                        typeofProduct = preItem.typeofProduct,
+                        fullPartname = preItem.fullPartname,
+                        madeby = preItem.madeby,
+                        unit = preItem.unit,
+                        pdtDescriptionTH = preItem.pdtDescriptionTH,
+                        pdtDescriptionAddOn = row[8].ToString(),
+                        tariffCode = preItem.tariffCode,
+                        tariffSeq = preItem.tariffSeq,
+                        tariffUnit = preItem.tariffUnit,
+                        dutyRate = preItem.dutyRate,
+                        newTariffCode = row[13].ToString(),
+                        newTariffSeq = row[14].ToString(),
+                        newTariffUnit = row[15].ToString(),
+                        newDutyRate = FixDutyRate(row[16])
+                    });
+
+                    continue;
+                }
+
+                objProducts.Add(new ProductNModel()
+                {
+                    id = i + 1,
+                    companyCode = row[0].ToString(),
+                    divisionCode = row[1].ToString(),
+                    section = row[2].ToString(),
+                    formality = row[3].ToString(),
+                    typeofProduct = row[4].ToString(),
+                    fullPartname = row[5].ToString(),
+                    madeby = row[6].ToString(),
+                    unit = row[7].ToString(),
+                    pdtDescriptionTH = row[8].ToString(),
+                    pdtDescriptionAddOn = "",
+                    tariffCode = row[9].ToString(),
+                    tariffSeq = row[10].ToString(),
+                    tariffUnit = row[11].ToString(),
+                    dutyRate = FixDutyRate(row[12]),
+                    newTariffCode = row[13].ToString(),
+                    newTariffSeq = row[14].ToString(),
+                    newTariffUnit = row[15].ToString(),
+                    newDutyRate = FixDutyRate(row[16])
+                });
+
+                currentId++;
+            }
+
+            return objProducts;
+        }
+
+        public List<ProductNModel> ConvertToObjProductN2(DataTable table)
+        {
+            var objProducts = new List<ProductNModel>();
+            int currentId = 0;
+
+            for (int i = 0; i < table.Rows.Count; i++)
+            {
+                var row = table.Rows[i];
+
+                if (string.IsNullOrEmpty(row[0].ToString()) &&
+                    string.IsNullOrEmpty(row[1].ToString()))
+                {
+                    var preItem = objProducts.Find(q => q.id == currentId);
+                    if (preItem == null) continue;
+
+                    objProducts.Add(new ProductNModel()
+                    {
+                        id = preItem.id,
+                        companyCode = preItem.companyCode,
+                        divisionCode = preItem.divisionCode,
+                        section = preItem.section,
+                        formality = preItem.formality,
+                        typeofProduct = preItem.typeofProduct,
+                        fullPartname = preItem.fullPartname,
+                        madeby = preItem.madeby,
+                        unit = preItem.unit,
+                        pdtDescriptionTH = preItem.pdtDescriptionTH,
+                        pdtDescriptionAddOn = row[4].ToString(),
+                        tariffCode = preItem.tariffCode,
+                        tariffSeq = preItem.tariffSeq,
+                        tariffUnit = preItem.tariffUnit,
+                        dutyRate = preItem.dutyRate,
+                        newTariffCode = row[9].ToString(),
+                        newTariffSeq = row[10].ToString(),
+                        newTariffUnit = row[11].ToString(),
+                        newDutyRate = FixDutyRate(row[12])
+                    });
+
+                    continue;
+                }
+
+                objProducts.Add(new ProductNModel()
+                {
+                    id = i + 1,
+                    companyCode = row[0].ToString(),
+                    divisionCode = row[1].ToString(),
+                    section = "",
+                    formality = "",
+                    typeofProduct = "",
+                    fullPartname = row[3].ToString(),
+                    madeby = row[2].ToString(),
+                    unit = "",
+                    pdtDescriptionTH = row[4].ToString(),
+                    pdtDescriptionAddOn = "",
+                    tariffCode = row[5].ToString(),
+                    tariffSeq = row[6].ToString(),
+                    tariffUnit = row[7].ToString(),
+                    dutyRate = FixDutyRate(row[8]),
+                    newTariffCode = row[9].ToString(),
+                    newTariffSeq = row[10].ToString(),
+                    newTariffUnit = row[11].ToString(),
+                    newDutyRate = FixDutyRate(row[12])
+                });
+
+                currentId++;
+            }
+
+            return objProducts;
+        }
+
         private string RemoveLineEndings(string value)
         {
             if (String.IsNullOrEmpty(value))
@@ -257,6 +419,16 @@ namespace CustomTariff.WinAppTest
                 return false;
             else
                 return true;
+        }
+
+        private Double FixDutyRate(Object value)
+        {
+            if (value == DBNull.Value || string.IsNullOrEmpty(value.ToString()))
+            {
+                return 0;
+            }
+            else
+                return Convert.ToDouble(value.ToString());
         }
     }
 }

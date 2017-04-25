@@ -100,6 +100,7 @@
     <Compile Include="DataAccess\AppDbService.cs" />
     <Compile Include="DataAccess\Entities\EntityBase.cs" />
     <Compile Include="DataAccess\Entities\Product.cs" />
+    <Compile Include="DataAccess\Entities\ProductN.cs" />
     <Compile Include="DataAccess\Entities\ReportingBase.cs" />
     <Compile Include="DataAccess\Entities\TariffClass.cs" />
     <Compile Include="DataAccess\IAppDbService.cs" />
@@ -116,6 +117,10 @@
     <Compile Include="Migrations\201704201102083_Add_TariffClass.cs" />
     <Compile Include="Migrations\201704201102083_Add_TariffClass.Designer.cs">
       <DependentUpon>201704201102083_Add_TariffClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704240342414_Add_ProductN.cs" />
+    <Compile Include="Migrations\201704240342414_Add_ProductN.Designer.cs">
+      <DependentUpon>201704240342414_Add_ProductN.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\IModelFactory.cs" />
@@ -146,6 +151,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704201102083_Add_TariffClass.resx">
       <DependentUpon>201704201102083_Add_TariffClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704240342414_Add_ProductN.resx">
+      <DependentUpon>201704240342414_Add_ProductN.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
