@@ -6,5 +6,7 @@ namespace CustomTariff.Api2.DataAccess
     public interface IAppDbService
     {
         Repository<Product> Products { get; }
+
+        Repository<ProductTariff> ProductTariffs { get; }
     }
 }

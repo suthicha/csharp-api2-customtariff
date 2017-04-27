@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomTariff.WinAppTest", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomTariff.Controllers", "..\CustomTariff.Controllers\CustomTariff.Controllers.csproj", "{1C4743E5-F235-45C3-AA91-8F49239F09F0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomTariff.WinApp", "..\CustomTariff.WinApp\CustomTariff.WinApp.csproj", "{29601F9D-2844-44F9-8EA5-2DF5EDBDA4EB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{1C4743E5-F235-45C3-AA91-8F49239F09F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C4743E5-F235-45C3-AA91-8F49239F09F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C4743E5-F235-45C3-AA91-8F49239F09F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29601F9D-2844-44F9-8EA5-2DF5EDBDA4EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29601F9D-2844-44F9-8EA5-2DF5EDBDA4EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29601F9D-2844-44F9-8EA5-2DF5EDBDA4EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29601F9D-2844-44F9-8EA5-2DF5EDBDA4EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

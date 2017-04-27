@@ -6,5 +6,7 @@ namespace CustomTariff.Api2.Models
     public interface IModelFactory
     {
         ProductModel Create(Product product);
+
+        ProductTariffModel Create(ProductTariff productTariff);
     }
 }

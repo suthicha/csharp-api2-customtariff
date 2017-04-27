@@ -96,16 +96,19 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ProductTariffController.cs" />
     <Compile Include="DataAccess\AppDbContext.cs" />
     <Compile Include="DataAccess\AppDbService.cs" />
     <Compile Include="DataAccess\Entities\EntityBase.cs" />
     <Compile Include="DataAccess\Entities\Product.cs" />
     <Compile Include="DataAccess\Entities\ProductN.cs" />
+    <Compile Include="DataAccess\Entities\ProductTariff.cs" />
     <Compile Include="DataAccess\Entities\ReportingBase.cs" />
     <Compile Include="DataAccess\Entities\TariffClass.cs" />
     <Compile Include="DataAccess\IAppDbService.cs" />
     <Compile Include="DataAccess\Repositories\IRepository.cs" />
     <Compile Include="DataAccess\Repositories\ProductRepository.cs" />
+    <Compile Include="DataAccess\Repositories\ProductTariffRepository.cs" />
     <Compile Include="DataAccess\Repositories\Repository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -129,6 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\CustomTariffApi.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

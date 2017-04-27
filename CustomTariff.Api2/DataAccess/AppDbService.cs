@@ -7,6 +7,8 @@ namespace CustomTariff.Api2.DataAccess
     {
         private Repository<Product> _products;
 
+        private Repository<ProductTariff> _productTariffs;
+
         public Repository<Product> Products
         {
             get
@@ -14,6 +16,16 @@ namespace CustomTariff.Api2.DataAccess
                 if (_products == null)
                     _products = new ProductRepository(new AppDbContext());
                 return _products;
+            }
+        }
+
+        public Repository<ProductTariff> ProductTariffs
+        {
+            get
+            {
+                if (_productTariffs == null)
+                    _productTariffs = new ProductTariffRepository(new AppDbContext());
+                return _productTariffs;
             }
         }
     }

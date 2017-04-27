@@ -1,10 +1,45 @@
 ﻿using CustomTariff.Api2.DataAccess.Entities;
 using CustomTariff.Models;
+using System;
 
 namespace CustomTariff.Api2.Models
 {
     public class ModelFactory : IModelFactory
     {
+        public ProductTariffModel Create(ProductTariff productTariff)
+        {
+            return new ProductTariffModel
+            {
+                id = productTariff.TrxId,
+                groupId = productTariff.GroupId,
+                companyCode = productTariff.CompanyCode,
+                divisionCode = productTariff.DivisionCode,
+                section = productTariff.Section,
+                formality = productTariff.Formality,
+                typeofProduct = productTariff.TypeOfProduct,
+                partName = productTariff.PartName,
+                spec = productTariff.SPEC,
+                fullPartName = productTariff.FullPartName,
+                madeBy = productTariff.MadeBy,
+                unit = productTariff.Unit,
+                pdtDescriptionTH = productTariff.PdtDescriptionTH,
+                tariffCode = productTariff.TariffCode,
+                statCode = productTariff.StatCode,
+                tariffUnit = productTariff.TariffUnit,
+                dutyRate = productTariff.DutyRate,
+                pdtDescriptionAddon = productTariff.PdtDescriptionAddon,
+                newTariffCode = productTariff.NewTariffCode,
+                newStatCode = productTariff.NewStatCode,
+                newTariffUnit = productTariff.NewTariffUnit,
+                newDutyRate = productTariff.NewDutyRate,
+                statusTariffCode = productTariff.StatusTariffCode,
+                statusStatCode = productTariff.StatusStatCode,
+                statusTariffUnit = productTariff.StatusTariffUnit,
+                statusDutyRate = productTariff.StatusDutyRate,
+                remark = productTariff.Remark
+            };
+        }
+
         public ProductModel Create(Product product)
         {
             return new ProductModel
