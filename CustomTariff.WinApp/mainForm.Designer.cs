@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.btnSearch = new System.Windows.Forms.Button();
@@ -54,59 +54,64 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.txtNewTariffCode = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.lblCompanyCode = new System.Windows.Forms.Label();
-            this.lblDivisionCode = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.lblTariffCode = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.lblFullPartName = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.lblStatCode = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.lblTariffUnit = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.txtNewStatCode = new System.Windows.Forms.TextBox();
-            this.label21 = new System.Windows.Forms.Label();
-            this.txtNewTariffUnit = new System.Windows.Forms.TextBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.lblDutyRate = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.txtRemark = new System.Windows.Forms.TextBox();
+            this.btnUpdate = new System.Windows.Forms.Button();
+            this.label28 = new System.Windows.Forms.Label();
+            this.txtDescriptionAddon = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
             this.txtNewDutyRate = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
-            this.txtDescriptionAddon = new System.Windows.Forms.TextBox();
-            this.label28 = new System.Windows.Forms.Label();
-            this.btnUpdate = new System.Windows.Forms.Button();
-            this.txtRemark = new System.Windows.Forms.TextBox();
-            this.label29 = new System.Windows.Forms.Label();
+            this.lblDutyRate = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.txtNewTariffUnit = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.txtNewStatCode = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.lblTariffUnit = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.lblStatCode = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.lblFullPartName = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.lblTariffCode = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.lblDivisionCode = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.lblCompanyCode = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtNewTariffCode = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 136);
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridView1.Size = new System.Drawing.Size(960, 216);
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridView1.Size = new System.Drawing.Size(962, 200);
             this.dataGridView1.TabIndex = 15;
             // 
             // backgroundWorker1
@@ -354,9 +359,8 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.label29);
             this.panel1.Controls.Add(this.txtRemark);
             this.panel1.Controls.Add(this.btnUpdate);
@@ -386,201 +390,108 @@
             this.panel1.Controls.Add(this.label9);
             this.panel1.Controls.Add(this.txtNewTariffCode);
             this.panel1.Controls.Add(this.label8);
-            this.panel1.Location = new System.Drawing.Point(12, 358);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(960, 175);
-            this.panel1.TabIndex = 18;
+            this.panel1.Size = new System.Drawing.Size(962, 179);
+            this.panel1.TabIndex = 0;
             // 
-            // txtNewTariffCode
+            // label29
             // 
-            this.txtNewTariffCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtNewTariffCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtNewTariffCode.Location = new System.Drawing.Point(137, 81);
-            this.txtNewTariffCode.MaxLength = 35;
-            this.txtNewTariffCode.Name = "txtNewTariffCode";
-            this.txtNewTariffCode.Size = new System.Drawing.Size(150, 22);
-            this.txtNewTariffCode.TabIndex = 0;
+            this.label29.AutoSize = true;
+            this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label29.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.label29.Location = new System.Drawing.Point(528, 112);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(62, 16);
+            this.label29.TabIndex = 34;
+            this.label29.Text = "Remark :";
             // 
-            // label8
+            // txtRemark
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.label8.Location = new System.Drawing.Point(23, 64);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(49, 16);
-            this.label8.TabIndex = 8;
-            this.label8.Text = "NEW : ";
+            this.txtRemark.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtRemark.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtRemark.Location = new System.Drawing.Point(601, 109);
+            this.txtRemark.MaxLength = 512;
+            this.txtRemark.Name = "txtRemark";
+            this.txtRemark.Size = new System.Drawing.Size(340, 23);
+            this.txtRemark.TabIndex = 5;
             // 
-            // label9
+            // btnUpdate
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label9.Location = new System.Drawing.Point(23, 10);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(108, 16);
-            this.label9.TabIndex = 9;
-            this.label9.Text = "Company Code :";
+            this.btnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnUpdate.Location = new System.Drawing.Point(137, 137);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(80, 25);
+            this.btnUpdate.TabIndex = 6;
+            this.btnUpdate.Text = "Update";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
-            // lblCompanyCode
+            // label28
             // 
-            this.lblCompanyCode.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblCompanyCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lblCompanyCode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lblCompanyCode.Location = new System.Drawing.Point(137, 6);
-            this.lblCompanyCode.Name = "lblCompanyCode";
-            this.lblCompanyCode.Size = new System.Drawing.Size(125, 24);
-            this.lblCompanyCode.TabIndex = 10;
-            this.lblCompanyCode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label28.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.label28.Location = new System.Drawing.Point(49, 112);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(82, 16);
+            this.label28.TabIndex = 32;
+            this.label28.Text = "Description :";
             // 
-            // lblDivisionCode
+            // txtDescriptionAddon
             // 
-            this.lblDivisionCode.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblDivisionCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lblDivisionCode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lblDivisionCode.Location = new System.Drawing.Point(372, 6);
-            this.lblDivisionCode.Name = "lblDivisionCode";
-            this.lblDivisionCode.Size = new System.Drawing.Size(100, 24);
-            this.lblDivisionCode.TabIndex = 12;
-            this.lblDivisionCode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.txtDescriptionAddon.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtDescriptionAddon.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtDescriptionAddon.Location = new System.Drawing.Point(137, 109);
+            this.txtDescriptionAddon.MaxLength = 512;
+            this.txtDescriptionAddon.Name = "txtDescriptionAddon";
+            this.txtDescriptionAddon.Size = new System.Drawing.Size(335, 23);
+            this.txtDescriptionAddon.TabIndex = 4;
             // 
-            // label12
+            // label27
             // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label12.Location = new System.Drawing.Point(268, 10);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(98, 16);
-            this.label12.TabIndex = 11;
-            this.label12.Text = "Division Code :";
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label27.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.label27.Location = new System.Drawing.Point(51, 84);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(80, 16);
+            this.label27.TabIndex = 30;
+            this.label27.Text = "Tariff Code :";
             // 
-            // lblTariffCode
+            // label26
             // 
-            this.lblTariffCode.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblTariffCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lblTariffCode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lblTariffCode.Location = new System.Drawing.Point(137, 38);
-            this.lblTariffCode.Name = "lblTariffCode";
-            this.lblTariffCode.Size = new System.Drawing.Size(150, 24);
-            this.lblTariffCode.TabIndex = 14;
-            this.lblTariffCode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label14.Location = new System.Drawing.Point(51, 42);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(80, 16);
-            this.label14.TabIndex = 13;
-            this.label14.Text = "Tariff Code :";
-            // 
-            // lblFullPartName
-            // 
-            this.lblFullPartName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.label26.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblFullPartName.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblFullPartName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lblFullPartName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lblFullPartName.Location = new System.Drawing.Point(601, 6);
-            this.lblFullPartName.Name = "lblFullPartName";
-            this.lblFullPartName.Size = new System.Drawing.Size(340, 24);
-            this.lblFullPartName.TabIndex = 16;
-            this.lblFullPartName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label26.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label26.Location = new System.Drawing.Point(69, 72);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(874, 2);
+            this.label26.TabIndex = 29;
             // 
-            // label16
+            // txtNewDutyRate
             // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label16.Location = new System.Drawing.Point(493, 10);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(102, 16);
-            this.label16.TabIndex = 15;
-            this.label16.Text = "Full PartName : ";
+            this.txtNewDutyRate.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtNewDutyRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtNewDutyRate.Location = new System.Drawing.Point(841, 81);
+            this.txtNewDutyRate.MaxLength = 10;
+            this.txtNewDutyRate.Name = "txtNewDutyRate";
+            this.txtNewDutyRate.Size = new System.Drawing.Size(100, 22);
+            this.txtNewDutyRate.TabIndex = 3;
+            this.txtNewDutyRate.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // lblStatCode
+            // label25
             // 
-            this.lblStatCode.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblStatCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lblStatCode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lblStatCode.Location = new System.Drawing.Point(372, 38);
-            this.lblStatCode.Name = "lblStatCode";
-            this.lblStatCode.Size = new System.Drawing.Size(100, 24);
-            this.lblStatCode.TabIndex = 18;
-            this.lblStatCode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label18.Location = new System.Drawing.Point(296, 42);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(70, 16);
-            this.label18.TabIndex = 17;
-            this.label18.Text = "StatCode :";
-            // 
-            // lblTariffUnit
-            // 
-            this.lblTariffUnit.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblTariffUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lblTariffUnit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lblTariffUnit.Location = new System.Drawing.Point(601, 38);
-            this.lblTariffUnit.Name = "lblTariffUnit";
-            this.lblTariffUnit.Size = new System.Drawing.Size(100, 24);
-            this.lblTariffUnit.TabIndex = 20;
-            this.lblTariffUnit.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label20.Location = new System.Drawing.Point(528, 42);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(67, 16);
-            this.label20.TabIndex = 19;
-            this.label20.Text = "TariffUnit :";
-            // 
-            // txtNewStatCode
-            // 
-            this.txtNewStatCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtNewStatCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtNewStatCode.Location = new System.Drawing.Point(372, 81);
-            this.txtNewStatCode.MaxLength = 15;
-            this.txtNewStatCode.Name = "txtNewStatCode";
-            this.txtNewStatCode.Size = new System.Drawing.Size(100, 22);
-            this.txtNewStatCode.TabIndex = 1;
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.label21.Location = new System.Drawing.Point(296, 84);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(70, 16);
-            this.label21.TabIndex = 22;
-            this.label21.Text = "StatCode :";
-            // 
-            // txtNewTariffUnit
-            // 
-            this.txtNewTariffUnit.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtNewTariffUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtNewTariffUnit.Location = new System.Drawing.Point(601, 81);
-            this.txtNewTariffUnit.MaxLength = 6;
-            this.txtNewTariffUnit.Name = "txtNewTariffUnit";
-            this.txtNewTariffUnit.Size = new System.Drawing.Size(100, 22);
-            this.txtNewTariffUnit.TabIndex = 2;
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.label22.Location = new System.Drawing.Point(528, 84);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(67, 16);
-            this.label22.TabIndex = 24;
-            this.label22.Text = "TariffUnit :";
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label25.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.label25.Location = new System.Drawing.Point(763, 84);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(70, 16);
+            this.label25.TabIndex = 28;
+            this.label25.Text = "DutyRate :";
             // 
             // lblDutyRate
             // 
@@ -603,101 +514,242 @@
             this.label24.TabIndex = 25;
             this.label24.Text = "DutyRate :";
             // 
-            // txtNewDutyRate
+            // txtNewTariffUnit
             // 
-            this.txtNewDutyRate.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtNewDutyRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtNewDutyRate.Location = new System.Drawing.Point(841, 81);
-            this.txtNewDutyRate.MaxLength = 10;
-            this.txtNewDutyRate.Name = "txtNewDutyRate";
-            this.txtNewDutyRate.Size = new System.Drawing.Size(100, 22);
-            this.txtNewDutyRate.TabIndex = 3;
+            this.txtNewTariffUnit.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtNewTariffUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtNewTariffUnit.Location = new System.Drawing.Point(601, 81);
+            this.txtNewTariffUnit.MaxLength = 6;
+            this.txtNewTariffUnit.Name = "txtNewTariffUnit";
+            this.txtNewTariffUnit.Size = new System.Drawing.Size(100, 22);
+            this.txtNewTariffUnit.TabIndex = 2;
+            this.txtNewTariffUnit.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // label25
+            // label22
             // 
-            this.label25.AutoSize = true;
-            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label25.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.label25.Location = new System.Drawing.Point(763, 84);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(70, 16);
-            this.label25.TabIndex = 28;
-            this.label25.Text = "DutyRate :";
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.label22.Location = new System.Drawing.Point(528, 84);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(67, 16);
+            this.label22.TabIndex = 24;
+            this.label22.Text = "TariffUnit :";
             // 
-            // label26
+            // txtNewStatCode
             // 
-            this.label26.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtNewStatCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtNewStatCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtNewStatCode.Location = new System.Drawing.Point(372, 81);
+            this.txtNewStatCode.MaxLength = 15;
+            this.txtNewStatCode.Name = "txtNewStatCode";
+            this.txtNewStatCode.Size = new System.Drawing.Size(100, 22);
+            this.txtNewStatCode.TabIndex = 1;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.label21.Location = new System.Drawing.Point(296, 84);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(70, 16);
+            this.label21.TabIndex = 22;
+            this.label21.Text = "StatCode :";
+            // 
+            // lblTariffUnit
+            // 
+            this.lblTariffUnit.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblTariffUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lblTariffUnit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.lblTariffUnit.Location = new System.Drawing.Point(601, 38);
+            this.lblTariffUnit.Name = "lblTariffUnit";
+            this.lblTariffUnit.Size = new System.Drawing.Size(100, 24);
+            this.lblTariffUnit.TabIndex = 20;
+            this.lblTariffUnit.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label20.Location = new System.Drawing.Point(528, 42);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(67, 16);
+            this.label20.TabIndex = 19;
+            this.label20.Text = "TariffUnit :";
+            // 
+            // lblStatCode
+            // 
+            this.lblStatCode.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblStatCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lblStatCode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.lblStatCode.Location = new System.Drawing.Point(372, 38);
+            this.lblStatCode.Name = "lblStatCode";
+            this.lblStatCode.Size = new System.Drawing.Size(100, 24);
+            this.lblStatCode.TabIndex = 18;
+            this.lblStatCode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label18.Location = new System.Drawing.Point(296, 42);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(70, 16);
+            this.label18.TabIndex = 17;
+            this.label18.Text = "StatCode :";
+            // 
+            // lblFullPartName
+            // 
+            this.lblFullPartName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label26.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label26.Location = new System.Drawing.Point(69, 72);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(872, 2);
-            this.label26.TabIndex = 29;
+            this.lblFullPartName.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblFullPartName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lblFullPartName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.lblFullPartName.Location = new System.Drawing.Point(601, 6);
+            this.lblFullPartName.Name = "lblFullPartName";
+            this.lblFullPartName.Size = new System.Drawing.Size(342, 24);
+            this.lblFullPartName.TabIndex = 16;
+            this.lblFullPartName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // label27
+            // label16
             // 
-            this.label27.AutoSize = true;
-            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label27.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.label27.Location = new System.Drawing.Point(51, 84);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(80, 16);
-            this.label27.TabIndex = 30;
-            this.label27.Text = "Tariff Code :";
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label16.Location = new System.Drawing.Point(493, 10);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(102, 16);
+            this.label16.TabIndex = 15;
+            this.label16.Text = "Full PartName : ";
             // 
-            // txtDescriptionAddon
+            // lblTariffCode
             // 
-            this.txtDescriptionAddon.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtDescriptionAddon.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtDescriptionAddon.Location = new System.Drawing.Point(137, 109);
-            this.txtDescriptionAddon.MaxLength = 512;
-            this.txtDescriptionAddon.Name = "txtDescriptionAddon";
-            this.txtDescriptionAddon.Size = new System.Drawing.Size(335, 22);
-            this.txtDescriptionAddon.TabIndex = 4;
+            this.lblTariffCode.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblTariffCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lblTariffCode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.lblTariffCode.Location = new System.Drawing.Point(137, 38);
+            this.lblTariffCode.Name = "lblTariffCode";
+            this.lblTariffCode.Size = new System.Drawing.Size(150, 24);
+            this.lblTariffCode.TabIndex = 14;
+            this.lblTariffCode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // label28
+            // label14
             // 
-            this.label28.AutoSize = true;
-            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label28.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.label28.Location = new System.Drawing.Point(49, 112);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(82, 16);
-            this.label28.TabIndex = 32;
-            this.label28.Text = "Description :";
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label14.Location = new System.Drawing.Point(51, 42);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(80, 16);
+            this.label14.TabIndex = 13;
+            this.label14.Text = "Tariff Code :";
             // 
-            // btnUpdate
+            // lblDivisionCode
             // 
-            this.btnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnUpdate.Location = new System.Drawing.Point(137, 137);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(100, 25);
-            this.btnUpdate.TabIndex = 5;
-            this.btnUpdate.Text = "Update";
-            this.btnUpdate.UseVisualStyleBackColor = true;
-            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            this.lblDivisionCode.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblDivisionCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lblDivisionCode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.lblDivisionCode.Location = new System.Drawing.Point(372, 6);
+            this.lblDivisionCode.Name = "lblDivisionCode";
+            this.lblDivisionCode.Size = new System.Drawing.Size(100, 24);
+            this.lblDivisionCode.TabIndex = 12;
+            this.lblDivisionCode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // txtRemark
+            // label12
             // 
-            this.txtRemark.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtRemark.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtRemark.Location = new System.Drawing.Point(601, 109);
-            this.txtRemark.MaxLength = 512;
-            this.txtRemark.Name = "txtRemark";
-            this.txtRemark.Size = new System.Drawing.Size(340, 22);
-            this.txtRemark.TabIndex = 33;
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label12.Location = new System.Drawing.Point(268, 10);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(98, 16);
+            this.label12.TabIndex = 11;
+            this.label12.Text = "Division Code :";
             // 
-            // label29
+            // lblCompanyCode
             // 
-            this.label29.AutoSize = true;
-            this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label29.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.label29.Location = new System.Drawing.Point(528, 112);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(62, 16);
-            this.label29.TabIndex = 34;
-            this.label29.Text = "Remark :";
+            this.lblCompanyCode.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblCompanyCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lblCompanyCode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.lblCompanyCode.Location = new System.Drawing.Point(137, 6);
+            this.lblCompanyCode.Name = "lblCompanyCode";
+            this.lblCompanyCode.Size = new System.Drawing.Size(125, 24);
+            this.lblCompanyCode.TabIndex = 10;
+            this.lblCompanyCode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label9.Location = new System.Drawing.Point(23, 10);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(108, 16);
+            this.label9.TabIndex = 9;
+            this.label9.Text = "Company Code :";
+            // 
+            // txtNewTariffCode
+            // 
+            this.txtNewTariffCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtNewTariffCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtNewTariffCode.Location = new System.Drawing.Point(137, 81);
+            this.txtNewTariffCode.MaxLength = 35;
+            this.txtNewTariffCode.Name = "txtNewTariffCode";
+            this.txtNewTariffCode.Size = new System.Drawing.Size(150, 22);
+            this.txtNewTariffCode.TabIndex = 0;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.label8.Location = new System.Drawing.Point(23, 64);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(49, 16);
+            this.label8.TabIndex = 8;
+            this.label8.Text = "NEW : ";
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Font = new System.Drawing.Font("Tahoma", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.linkLabel1.Location = new System.Drawing.Point(922, 517);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(35, 16);
+            this.linkLabel1.TabIndex = 19;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "HIDE";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainer1.Location = new System.Drawing.Point(12, 131);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.dataGridView1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.panel1);
+            this.splitContainer1.Size = new System.Drawing.Size(962, 383);
+            this.splitContainer1.SplitterDistance = 200;
+            this.splitContainer1.TabIndex = 20;
+            // 
+            // button3
+            // 
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.button3.Location = new System.Drawing.Point(223, 137);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(80, 25);
+            this.button3.TabIndex = 7;
+            this.button3.Text = "Cancel";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // mainForm
             // 
@@ -705,7 +757,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(221)))), ((int)(((byte)(238)))));
             this.ClientSize = new System.Drawing.Size(984, 561);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label7);
@@ -723,7 +776,6 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.txtTariffCode);
             this.Controls.Add(this.btnSearch);
-            this.Controls.Add(this.dataGridView1);
             this.Name = "mainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Customs Tariff 2017";
@@ -733,6 +785,10 @@
             this.statusStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -794,6 +850,9 @@
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.TextBox txtRemark;
+        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Button button3;
     }
 }
 
