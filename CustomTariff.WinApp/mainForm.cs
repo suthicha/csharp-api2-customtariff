@@ -1,9 +1,11 @@
-﻿using System;
-using System.Collections;
+﻿using CustomTariff.Controllers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace CustomTariff.WinApp
@@ -12,35 +14,103 @@ namespace CustomTariff.WinApp
     {
         private int intOriginalExStyle = -1;
         private bool bEnableAntiFlicker = true;
-        private DataSet dsResult;
-        private BindingSource bs;
+        private DataSet _dsResult;
+        private static BindingSource _bsCustom;
         private TariffController _controller;
-        private List<int> _checkedItems;
+        private List<Object> _checkedItems;
+
+        internal static BindingSource CustomBindingSource
+        {
+            get
+            {
+                return _bsCustom;
+            }
+        }
 
         public mainForm()
         {
             ToggleAntiFlicker(false);
             InitializeComponent();
 
-            _controller = new TariffController();
-            _checkedItems = new List<int>();
+            btnLoadCustomsTariff.Cursor = Cursors.Hand;
+            btnExportForCustomer.Cursor = Cursors.Hand;
+            btnExportForSystem.Cursor = Cursors.Hand;
+            btnCancel.Cursor = Cursors.Hand;
+            btnUpdate.Cursor = Cursors.Hand;
+            btnSearch.Cursor = Cursors.Hand;
+
+            _controller = new TariffController(ConfigurationManager.AppSettings["DbConnection"]);
+            _checkedItems = new List<Object>();
 
             Helper.DoubleBuffered(this.dataGridView1, true);
             this.ResizeBegin += Form1_ResizeBegin;
             this.ResizeEnd += Form1_ResizeEnd;
             this.toolStripProgressBar1.Style = ProgressBarStyle.Blocks;
-            bs = new BindingSource();
-            bs.ListChanged += Bs_ListChanged;
+            _bsCustom = new BindingSource();
+            _bsCustom.ListChanged += HandlerBindingSourceListChanged;
 
-            this.dataGridView1.CellMouseClick += DataGridView1_CellMouseClick;
-            this.dataGridView1.CellDoubleClick += DataGridView1_CellDoubleClick;
-            this.__initDataGridViewColumns(dataGridView1);
+            this.dataGridView1.CellMouseClick += HandlerDataGridViewCellMouseClick;
+            this.dataGridView1.CellDoubleClick += HandlerDataGridViewCellDoubleClick;
+            this.dataGridView1.CellContentClick += HandlerDataGridViewCellContentClick;
+            this.initDataGridViewColumns(dataGridView1);
             lblStatus.Text = "Ready";
         }
 
-        private void DataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void HandlerDataGridViewCellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex >= 0 && e.RowIndex >= 0)
+            if (panel1.Tag == null) return;
+
+            if (e.ColumnIndex == 0 && e.RowIndex >= 0)
+            {
+                DataGridViewCheckBoxCell ch1 = new DataGridViewCheckBoxCell();
+                ch1 = (DataGridViewCheckBoxCell)dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[0];
+
+                if (ch1.Value == null)
+                    ch1.Value = false;
+                switch (ch1.Value.ToString())
+                {
+                    case "True":
+                        ch1.Value = false;
+                        break;
+
+                    case "False":
+                        ch1.Value = true;
+                        break;
+                }
+
+                if ((Boolean)ch1.Value == false)
+                {
+                    var drv = (DataRowView)dataGridView1.CurrentRow.DataBoundItem;
+                    var items = _checkedItems;
+
+                    bool seekItem = false;
+
+                    _checkedItems.ForEach(q =>
+                    {
+                        var obj = q as List<object>;
+                        if (Convert.ToInt32(obj[19]) == Convert.ToInt32(drv["TrxId"]))
+                        {
+                            seekItem = true;
+                        }
+                    });
+
+                    if (seekItem)
+                    {
+                        var seekRow = _checkedItems.Find(q => Convert.ToInt32(((List<Object>)q)[19]) == Convert.ToInt32(drv["TrxId"]));
+                        _checkedItems.Remove(seekRow);
+                    }
+                }
+                else
+                {
+                    var newRow = Helper.ConvertToDataGridViewCell(dataGridView1.CurrentRow);
+                    _checkedItems.Add(newRow);
+                }
+            }
+        }
+
+        private void HandlerDataGridViewCellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex >= 1 && e.ColumnIndex <= 7 && e.RowIndex >= 0)
             {
                 if (!splitContainer1.Panel2Collapsed)
                     VisiblePanelDetail();
@@ -52,27 +122,72 @@ namespace CustomTariff.WinApp
                 if (itemForm.ShowDialog() == DialogResult.OK)
                 {
                     var drv = itemForm.ItemDataRow;
-                    var mm = bs[bs.Find("TrxId", drv["TrxId"])];
-                    mm = drv;
-                    bs.EndEdit();
-                    _controller.UpdateField(drv);
-                    BoundItemBinding(drv);
+
+                    var cells = dataGridView1.CurrentRow.Cells;
+                    cells["__col__NewTariffCode"].Value = drv["NewTariffCode"];
+                    cells["__col__NewStatCode"].Value = drv["NewStatCode"];
+                    cells["__col__NewTariffUnit"].Value = drv["NewTariffUnit"];
+                    cells["__col__NewDutyRate"].Value = Convert.ToDecimal(drv["NewDutyRate"]);
+                    cells["__col__PdtDescriptionAddon"].Value = drv["PdtDescriptionAddon"];
+                    cells["__col__Remark"].Value = drv["Remark"];
+
+                    cells["__col__StatusTariffCode"].Value =
+                        drv["NewTariffCode"].ToString().Equals(cells["__col__TariffCode"].Value) ? "NOT CHANGE" : "CHANGE";
+
+                    cells["__col__StatusStatCode"].Value =
+                        drv["NewStatCode"].ToString().Equals(cells["__col__StatCode"].Value) ? "NOT CHANGE" : "CHANGE";
+
+                    cells["__col__StatusTariffUnit"].Value =
+                        drv["NewTariffUnit"].ToString().Equals(cells["__col__TariffUnit"].Value) ? "NOT CHANGE" : "CHANGE";
+
+                    cells["__col__StatusDutyRate"].Value =
+                        Convert.ToDouble(drv["NewDutyRate"]).Equals(Convert.ToDouble(cells["__col__DutyRate"].Value)) ?
+                        "NOT CHANGE" : "CHANGE";
+
+                    var obj = Helper.ConvertToDataGridViewCell(dataGridView1.CurrentRow);
+                    _controller.UpdateFields(obj);
+
+                    dataGridView1.CurrentCell = dataGridView1[0, e.RowIndex];
                 }
                 VisiblePanelDetail();
             }
         }
 
-        private void DataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void HandlerDataGridViewCellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (e.ColumnIndex >= 4 && e.RowIndex >= 0)
+            if (panel1.Tag != null) return;
+
+            if (e.ColumnIndex >= 8 && e.ColumnIndex <= 11 && e.RowIndex >= 0)
             {
-                var drv = dataGridView1.CurrentRow.DataBoundItem;
-                BoundItemBinding(drv);
-                panel1.Tag = drv;
+                dataGridView1.Columns["__col__checkbox"].ReadOnly = false;
+                var drv = (DataRowView)dataGridView1.CurrentRow.DataBoundItem;
+                var objCells = Helper.ConvertToDataGridViewCell(dataGridView1.CurrentRow);
+
+                if (chkAutoFilterOnSelected.Checked)
+                {
+                    setBoundItemBinding(drv);
+                    panel1.Tag = objCells;
+
+                    var commandFilter = _bsCustom.Filter;
+                    btnCancel.Tag = commandFilter;
+
+                    if (string.IsNullOrEmpty(commandFilter))
+                    {
+                        commandFilter = string.Format("CompanyCode='{0}' AND DivisionCode='{1}' AND NewTariffCode = '{2}'",
+                                          drv["CompanyCode"],
+                                          drv["DivisionCode"],
+                                          drv["NewTariffCode"]);
+                    }
+                    else
+                        commandFilter += string.Format("AND NewTariffCode = '{0}'", drv["NewTariffCode"]);
+
+                    _bsCustom.Filter = commandFilter;
+                    lblCommandText.Text = commandFilter.ToUpper();
+                }
             }
         }
 
-        private void BoundItemBinding(Object obj)
+        private void setBoundItemBinding(Object obj)
         {
             try
             {
@@ -94,7 +209,18 @@ namespace CustomTariff.WinApp
             catch { }
         }
 
-        private void ResetBoundItem()
+        private void resetCommandFilter()
+        {
+            if (btnCancel.Tag != null)
+            {
+                _bsCustom.Filter = btnCancel.Tag.ToString();
+                lblCommandText.Text = _bsCustom.Filter;
+            }
+
+            panel1.Tag = null;
+        }
+
+        private void resetBoundItems()
         {
             lblCompanyCode.Text = "";
             lblDivisionCode.Text = "";
@@ -109,13 +235,36 @@ namespace CustomTariff.WinApp
             txtNewDutyRate.Text = "";
             txtDescriptionAddon.Text = "";
             txtRemark.Text = "";
-            panel1.Tag = null;
+
+            clearCheckBoxSelected();
+
+            if (btnCancel.Tag == null) panel1.Tag = null;
         }
 
-        private void Bs_ListChanged(object sender, ListChangedEventArgs e)
+        private void clearCheckBoxSelected()
+        {
+            for (int i = 0; i < _checkedItems.Count; i++)
+            {
+                var items = _checkedItems[i] as List<object>;
+                var row = findDataGridViewRow(Convert.ToInt32(items[19]));
+                row.Cells[0].Value = false;
+            }
+            _checkedItems.Clear();
+        }
+
+        private void HandlerBindingSourceListChanged(object sender, ListChangedEventArgs e)
         {
             lblStatus.Text = "Done";
-            lblTotalRecords.Text = string.Format("{0} Rec.", Convert.ToDecimal(bs.Count).ToString("#,##0"));
+            lblTotalRecords.Text = string.Format("{0} Rec.", Convert.ToDecimal(_bsCustom.Count).ToString("#,##0"));
+
+            if (panel1.Tag != null)
+            {
+                var obj = panel1.Tag as List<object>;
+                var row = findDataGridViewRow(Convert.ToInt32(obj[19]));
+                dataGridView1.CurrentCell = dataGridView1[0, row.Index];
+
+                setSelectRowStyle(row.Index, true);
+            }
         }
 
         protected override CreateParams CreateParams
@@ -154,7 +303,6 @@ namespace CustomTariff.WinApp
         private void ToggleAntiFlicker(bool Enable)
         {
             bEnableAntiFlicker = Enable;
-            //hacky, but works
             this.MaximizeBox = true;
         }
 
@@ -163,11 +311,11 @@ namespace CustomTariff.WinApp
             // backgroundWorker1.RunWorkerAsync();
         }
 
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        private async void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             try
             {
-                e.Result = _controller.GetAll();
+                e.Result = await _controller.GetAll();
             }
             catch { }
         }
@@ -175,14 +323,16 @@ namespace CustomTariff.WinApp
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             this.toolStripProgressBar1.Style = ProgressBarStyle.Blocks;
+            _bsCustom.Filter = string.Empty;
+            lblCommandText.Text = string.Empty;
 
             try
             {
-                dsResult = (DataSet)e.Result;
-                bs.DataSource = dsResult.Tables[0];
-                dataGridView1.DataSource = bs;
+                _dsResult = (DataSet)e.Result;
+                _bsCustom.DataSource = _dsResult.Tables[0];
+                dataGridView1.DataSource = _bsCustom;
 
-                ResetBoundItem();
+                resetBoundItems();
             }
             catch (Exception ex)
             {
@@ -196,17 +346,21 @@ namespace CustomTariff.WinApp
         {
             if (e.KeyCode == Keys.Enter)
             {
+                resetBoundItems();
+                resetCommandFilter();
+
                 ConditionFilter(cboTariffStatus.Text,
                     txtCompanyCode.Text,
                     txtDivisionCode.Text,
                     txtTariffCode.Text,
                     txtDescription.Text);
+
                 var chk = ((CheckBox)dataGridView1.Controls.Find("checkboxHeader", true)[0]);
                 chk.Checked = false;
             }
         }
 
-        private void __initDataGridViewColumns(DataGridView dgv)
+        private void initDataGridViewColumns(DataGridView dgv)
         {
             dgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
             dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
@@ -222,11 +376,11 @@ namespace CustomTariff.WinApp
             dgv.AllowUserToResizeRows = false;
 
             DataGridViewCheckBoxColumn chkCol = new DataGridViewCheckBoxColumn();
-            chkCol.Name = "X";
+            chkCol.Name = "__col__checkbox";
             chkCol.HeaderText = "";
             chkCol.DataPropertyName = "CheckState";
             chkCol.Width = 50;
-            chkCol.ReadOnly = false;
+            chkCol.ReadOnly = true;
             chkCol.FillWeight = 10;
             chkCol.Resizable = DataGridViewTriState.False;
 
@@ -239,24 +393,24 @@ namespace CustomTariff.WinApp
             dgv.Columns.Add(chkCol);
             dgv.Controls.Add(checkboxHeader);
 
-            dgv.Columns.Add(__newDgvColumn("comcd", "CompanyCode", 60, DataGridViewContentAlignment.MiddleCenter));
-            dgv.Columns.Add(__newDgvColumn("divcd", "DivisionCode", 60, DataGridViewContentAlignment.MiddleCenter));
-            dgv.Columns.Add(__newDgvColumn("FullPartName", "FullPartName", 250));
-            dgv.Columns.Add(__newDgvColumn("TariffCode(old)", "TariffCode", 100, DataGridViewContentAlignment.MiddleCenter));
-            dgv.Columns.Add(__newDgvColumn("StatCode(old)", "StatCode", 90, DataGridViewContentAlignment.MiddleCenter));
-            dgv.Columns.Add(__newDgvColumn("TariffUnit(old)", "TariffUnit", 100, DataGridViewContentAlignment.MiddleCenter));
-            dgv.Columns.Add(__newDgvColumn("DutyRate(old)", "DutyRate", 90, DataGridViewContentAlignment.MiddleCenter));
-            dgv.Columns.Add(__newDgvColumn("TariffCode(New)", "NewTariffCode", 105, DataGridViewContentAlignment.MiddleCenter));
-            dgv.Columns.Add(__newDgvColumn("StatCode(new)", "NewStatCode", 95, DataGridViewContentAlignment.MiddleCenter));
-            dgv.Columns.Add(__newDgvColumn("TariffUnit(new)", "NewTariffUnit", 105, DataGridViewContentAlignment.MiddleCenter));
-            dgv.Columns.Add(__newDgvColumn("DutyRate(new)", "NewDutyRate", 90, DataGridViewContentAlignment.MiddleCenter));
-            dgv.Columns.Add(__newDgvColumn("Description(TH)", "PdtDescriptionTH", 600));
-            dgv.Columns.Add(__newDgvColumn("Description(AddOn)", "PdtDescriptionAddon", 250));
-            dgv.Columns.Add(__newDgvColumn("Remark", "Remark", 250));
-            dgv.Columns.Add(__newDgvColumn("TariffCode(status)", "StatusTariffCode", 120, DataGridViewContentAlignment.MiddleCenter));
-            dgv.Columns.Add(__newDgvColumn("StatCode(status)", "StatusStatCode", 120, DataGridViewContentAlignment.MiddleCenter));
-            dgv.Columns.Add(__newDgvColumn("TariffUnit(status)", "StatusTariffUnit", 120, DataGridViewContentAlignment.MiddleCenter));
-            dgv.Columns.Add(__newDgvColumn("DutyRate(status)", "StatusDutyRate", 120, DataGridViewContentAlignment.MiddleCenter));
+            dgv.Columns.Add(createDataGridViewTextBoxColumn("comcd", "CompanyCode", 60, DataGridViewContentAlignment.MiddleCenter));
+            dgv.Columns.Add(createDataGridViewTextBoxColumn("divcd", "DivisionCode", 60, DataGridViewContentAlignment.MiddleCenter));
+            dgv.Columns.Add(createDataGridViewTextBoxColumn("FullPartName", "FullPartName", 250));
+            dgv.Columns.Add(createDataGridViewTextBoxColumn("TariffCode(old)", "TariffCode", 100, DataGridViewContentAlignment.MiddleCenter));
+            dgv.Columns.Add(createDataGridViewTextBoxColumn("StatCode(old)", "StatCode", 90, DataGridViewContentAlignment.MiddleCenter));
+            dgv.Columns.Add(createDataGridViewTextBoxColumn("TariffUnit(old)", "TariffUnit", 100, DataGridViewContentAlignment.MiddleCenter));
+            dgv.Columns.Add(createDataGridViewTextBoxColumn("DutyRate(old)", "DutyRate", 90, DataGridViewContentAlignment.MiddleCenter));
+            dgv.Columns.Add(createDataGridViewTextBoxColumn("TariffCode(New)", "NewTariffCode", 105, DataGridViewContentAlignment.MiddleCenter));
+            dgv.Columns.Add(createDataGridViewTextBoxColumn("StatCode(new)", "NewStatCode", 95, DataGridViewContentAlignment.MiddleCenter));
+            dgv.Columns.Add(createDataGridViewTextBoxColumn("TariffUnit(new)", "NewTariffUnit", 105, DataGridViewContentAlignment.MiddleCenter));
+            dgv.Columns.Add(createDataGridViewTextBoxColumn("DutyRate(new)", "NewDutyRate", 90, DataGridViewContentAlignment.MiddleCenter));
+            dgv.Columns.Add(createDataGridViewTextBoxColumn("Description(TH)", "PdtDescriptionTH", 600));
+            dgv.Columns.Add(createDataGridViewTextBoxColumn("Description(AddOn)", "PdtDescriptionAddon", 250));
+            dgv.Columns.Add(createDataGridViewTextBoxColumn("Remark", "Remark", 250));
+            dgv.Columns.Add(createDataGridViewTextBoxColumn("TariffCode(status)", "StatusTariffCode", 120, DataGridViewContentAlignment.MiddleCenter));
+            dgv.Columns.Add(createDataGridViewTextBoxColumn("StatCode(status)", "StatusStatCode", 120, DataGridViewContentAlignment.MiddleCenter));
+            dgv.Columns.Add(createDataGridViewTextBoxColumn("TariffUnit(status)", "StatusTariffUnit", 120, DataGridViewContentAlignment.MiddleCenter));
+            dgv.Columns.Add(createDataGridViewTextBoxColumn("DutyRate(status)", "StatusDutyRate", 120, DataGridViewContentAlignment.MiddleCenter));
 
             dgv.Columns["__col__PdtDescriptionTH"].DefaultCellStyle.Font = new Font("Tahoma", 9.75f);
             dgv.Columns["__col__PdtDescriptionAddon"].DefaultCellStyle.Font = new Font("Tahoma", 9.75f);
@@ -276,27 +430,66 @@ namespace CustomTariff.WinApp
 
         private void CheckboxHeader_CheckedChanged(object sender, EventArgs e)
         {
-            var checkState = ((CheckBox)dataGridView1.Controls.Find("checkboxHeader", true)[0]).Checked;
-            _checkedItems.Clear();
+            handlerCheckStateChanged();
+        }
 
-            for (int i = 0; i < dataGridView1.RowCount; i++)
+        private void handlerCheckStateChanged()
+        {
+            if (panel1.Tag == null) return;
+
+            if (dataGridView1.RowCount >= 5000)
             {
-                var row = dataGridView1.Rows[i];
-                row.Cells[0].Value = checkState;
-                dataGridView1.CurrentCell = dataGridView1[1, 0];
+                var dlg = MessageBox.Show("Are you select more than 5,000 items?",
+                    "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                if (checkState)
+                if (dlg == DialogResult.No)
                 {
-                    var id = Convert.ToInt32(((DataRowView)row.DataBoundItem)["TrxId"]);
-                    _checkedItems.Add(Convert.ToInt32(id));
+                    return;
                 }
+            }
+
+            var checkState = ((CheckBox)dataGridView1.Controls.Find("checkboxHeader", true)[0]).Checked;
+
+            _checkedItems.Clear();
+            setCheckBoxOnItemsBinding(checkState);
+        }
+
+        private void setCheckBoxOnItemsBinding(Boolean checkState)
+        {
+            var cells = panel1.Tag as List<Object>;
+            var newTariffCode = cells.ElementAt(8).ToString();
+
+            if (checkState)
+            {
+                var rowFilter = dataGridView1.Rows.OfType<DataGridViewRow>().Where(
+                q => q.Cells["__col__NewTariffCode"].Value.ToString() == newTariffCode);
+
+                if (rowFilter == null || rowFilter.Count() == 0)
+                    return;
+
+                for (int i = 0; i < rowFilter.Count(); i++)
+                {
+                    rowFilter.ElementAt(i).Cells[0].Value = checkState;
+
+                    _checkedItems.Add(Helper.ConvertToDataGridViewCell(rowFilter.ElementAt(i)));
+                }
+            }
+            else
+            {
+                for (int i = 0; i < dataGridView1.RowCount; i++)
+                {
+                    dataGridView1.Rows[i].Cells[0].Value = false;
+                }
+                _checkedItems.Clear();
             }
 
             if (dataGridView1.RowCount > 0)
                 dataGridView1.CurrentCell = dataGridView1[1, 0];
         }
 
-        private DataGridViewTextBoxColumn __newDgvColumn(string title, string propertyName, int width, DataGridViewContentAlignment alignment = DataGridViewContentAlignment.MiddleLeft)
+        private DataGridViewTextBoxColumn createDataGridViewTextBoxColumn(
+            string title, string propertyName, int width,
+            DataGridViewContentAlignment alignment = DataGridViewContentAlignment.MiddleLeft)
         {
             var col = new DataGridViewTextBoxColumn
             {
@@ -319,13 +512,22 @@ namespace CustomTariff.WinApp
                     txtTariffCode.Text,
                     txtDescription.Text);
 
-            ResetBoundItem();
-
-            var chk = ((CheckBox)dataGridView1.Controls.Find("checkboxHeader", true)[0]);
-            chk.Checked = false;
+            resetBoundItems();
+            panel1.Tag = null;
+            setCheckBoxStatus(false);
         }
 
-        private void ConditionFilter(string tariffStatus, string companyCode, string divisionCode, string tariffCode, string description)
+        private void setCheckBoxStatus(Boolean status)
+        {
+            var chk = ((CheckBox)dataGridView1.Controls.Find("checkboxHeader", true)[0]);
+            chk.Checked = status;
+        }
+
+        private void ConditionFilter(string tariffStatus,
+            string companyCode,
+            string divisionCode,
+            string tariffCode,
+            string description)
         {
             if (cboTariffStatus.Text == "")
             {
@@ -380,15 +582,14 @@ namespace CustomTariff.WinApp
                 }
 
                 lblCommandText.Text = commandFilter.ToUpper();
-                bs.Filter = commandFilter;
-                ResetBoundItem();
 
-                if (bs.Count > 0)
+                _bsCustom.Filter = commandFilter;
+
+                if (_bsCustom.Count > 0)
                     dataGridView1.CurrentCell = dataGridView1[0, 0];
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show("Found Error : " + ex.Message);
             }
         }
 
@@ -400,161 +601,151 @@ namespace CustomTariff.WinApp
         private void btnLoadCustomsTariff_Click(object sender, EventArgs e)
         {
             if (backgroundWorker1.IsBusy) return;
+
+            if (dataGridView1.RowCount > 0)
+            {
+                var dlg = MessageBox.Show("Do you want reload data?", "Warning",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (dlg == DialogResult.No) return;
+            }
+
             backgroundWorker1.RunWorkerAsync();
-            this.bs.DataSource = null;
-            this.toolStripProgressBar1.Style = ProgressBarStyle.Marquee;
+            _bsCustom.DataSource = null;
+
             this.lblStatus.Text = "Loading...";
+            this.toolStripProgressBar1.Style = ProgressBarStyle.Marquee;
             this.btnLoadCustomsTariff.Click -= btnLoadCustomsTariff_Click;
+        }
+
+        private void UpdateDataSource(DataRowView obj)
+        {
+            DataTable table = (DataTable)_bsCustom.DataSource;
+
+            var result = table.AsEnumerable().Where(q => q.Field<int>("TrxId") == (int)obj["TrxId"]);
+
+            if (result == null || result.Count() == 0) return;
+            var rows = result;
+
+            if (rows.Count() > 0)
+            {
+                var dr = rows.ElementAt(0);
+                dr.BeginEdit();
+                dr["NewStatCode"] = obj["NewStatCode"];
+                dr["NewTariffCode"] = obj["NewTariffCode"];
+                dr["NewDutyRate"] = obj["NewDutyRate"];
+                dr["PdtDescriptionAddon"] = obj["PdtDescriptionAddon"];
+                dr["Remark"] = obj["Remark"];
+                dr.EndEdit();
+            }
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(txtNewTariffCode.Text) ||
+                string.IsNullOrEmpty(txtNewStatCode.Text) ||
+                string.IsNullOrEmpty(txtNewTariffUnit.Text))
+            {
+                MessageBox.Show("Please enter new tariff information.!!!");
+                return;
+            }
+
+            if (btnUpdate.Text == "OK")
+            {
+                btnUpdate.Text = "Update";
+                btnCancel.Visible = true;
+                resetBoundItems();
+                resetCommandFilter();
+                return;
+            }
+
             if (panel1.Tag == null)
             {
                 MessageBox.Show("Find not found data to update.!!!");
                 return;
             }
 
-            var drv = (DataRowView)FillDataBoundItem();
-            var bsItem = bs[bs.Find("TrxId", drv["TrxId"])];
-            bsItem = drv;
-            bs.EndEdit();
+            var objRows = getRowsToUpdate();
 
-            FindCheckRow();
-
-            if (_checkedItems.Count > 0)
-            {
-                List<DataRowView> items = new List<DataRowView>();
-                items.Add(drv);
-
-                for (int i = 0; i < _checkedItems.Count; i++)
-                {
-                    var childDrv = (DataRowView)bs[bs.Find("TrxId", _checkedItems[i])];
-
-                    if (drv["NewTariffCode"].ToString() == childDrv["NewTariffCode"].ToString())
-                    {
-                        childDrv["NewStatCode"] = drv["NewStatCode"];
-                        childDrv["NewTariffUnit"] = drv["NewTariffUnit"];
-                        childDrv["NewDutyRate"] = drv["NewDutyRate"];
-                        childDrv["PdtDescriptionAddon"] = drv["PdtDescriptionAddon"];
-                        childDrv["Remark"] = drv["Remark"];
-
-                        if (drv["NewStatCode"].ToString() != childDrv["StatCode"].ToString())
-                            childDrv["StatusStatCode"] = "CHANGE";
-                        else
-                            childDrv["StatusStatCode"] = "NOT CHANGE";
-
-                        if (drv["NewTariffUnit"].ToString() != childDrv["TariffUnit"].ToString())
-                            childDrv["StatusTariffUnit"] = "CHANGE";
-                        else
-                            childDrv["StatusTariffUnit"] = "NOT CHANGE";
-
-                        if (Convert.ToInt32(drv["NewDutyRate"]) != Convert.ToInt32(drv["DutyRate"]))
-                            childDrv["StatusDutyRate"] = "CHANGE";
-                        else
-                            childDrv["StatusDutyRate"] = "NOT CHANGE";
-
-                        var vrBs = bs[bs.Find("TrxId", childDrv["TrxId"])];
-                        vrBs = childDrv;
-                        items.Add(childDrv);
-                    }
-                }
-
-                try
-                {
-                    _controller.UpdateFields(items.ToArray());
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Update Error : " + ex.Message);
-                }
-            }
-            else
-            {
-                try
-                {
-                    _controller.UpdateField(drv);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Update Error : " + ex.Message);
-                }
-            }
-
-            ResetBoundItem();
+            backgroundWorker2.RunWorkerAsync(objRows);
+            toolStripProgressBar1.Style = ProgressBarStyle.Marquee;
+            lblStatus.Text = "Updating..";
         }
 
-        private object FillDataBoundItem()
+        private DataGridViewRow findDataGridViewRow(int id)
+        {
+            DataGridViewRow row = null;
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                var drv = (DataRowView)dataGridView1.Rows[i].DataBoundItem;
+
+                if (Convert.ToInt32(drv["TrxId"]) == id)
+                {
+                    row = dataGridView1.Rows[i];
+                    break;
+                }
+            }
+            return row;
+        }
+
+        private List<object> readRowToObjects(List<object> objRow)
+        {
+            int rowIndex = -1;
+            int trxid = Convert.ToInt32(objRow[19]);
+            DataGridViewRow row = findDataGridViewRow(trxid);
+
+            if (row != null)
+            {
+                rowIndex = row.Index;
+
+                var cells = dataGridView1.Rows[rowIndex].Cells;
+                cells["__col__NewTariffCode"].Value = txtNewTariffCode.Text;
+                cells["__col__NewStatCode"].Value = txtNewStatCode.Text;
+                cells["__col__NewTariffUnit"].Value = txtNewTariffUnit.Text;
+                cells["__col__NewDutyRate"].Value = Convert.ToDecimal(txtNewDutyRate.Text);
+                cells["__col__PdtDescriptionAddon"].Value = txtDescriptionAddon.Text;
+                cells["__col__Remark"].Value = txtRemark.Text;
+
+                cells["__col__StatusTariffCode"].Value =
+                    txtNewTariffCode.Text.Equals(cells["__col__TariffCode"].Value) ? "NOT CHANGE" : "CHANGE";
+
+                cells["__col__StatusStatCode"].Value =
+                    txtNewStatCode.Text.Equals(cells["__col__StatCode"].Value) ? "NOT CHANGE" : "CHANGE";
+
+                cells["__col__StatusTariffUnit"].Value =
+                    txtNewTariffUnit.Text.Equals(cells["__col__TariffUnit"].Value) ? "NOT CHANGE" : "CHANGE";
+
+                cells["__col__StatusDutyRate"].Value =
+                    Convert.ToDouble(txtNewDutyRate.Text).Equals(Convert.ToDouble(cells["__col__DutyRate"].Value)) ?
+                    "NOT CHANGE" : "CHANGE";
+
+                var rowCells = dataGridView1.Rows[rowIndex];
+                return Helper.ConvertToDataGridViewCell(rowCells);
+            }
+            else return null;
+        }
+
+        private List<object> getRowsToUpdate()
         {
             if (panel1.Tag == null) return null;
 
-            var ItemDataRow = (DataRowView)panel1.Tag;
+            var objRow = panel1.Tag as List<object>;
+            var objRowsForUpdate = new List<object>();
 
             try
             {
-                ItemDataRow["NewTariffCode"] = txtNewTariffCode.Text;
-                ItemDataRow["NewStatCode"] = txtNewStatCode.Text;
-                ItemDataRow["NewTariffUnit"] = txtNewTariffUnit.Text;
-                ItemDataRow["NewDutyRate"] = Convert.ToDecimal(txtNewDutyRate.Text);
-                ItemDataRow["PdtDescriptionAddon"] = txtDescriptionAddon.Text;
-                ItemDataRow["Remark"] = txtRemark.Text;
+                objRowsForUpdate.Add(readRowToObjects(objRow));
 
-                if (txtNewTariffCode.Text != ItemDataRow["TariffCode"].ToString().TrimEnd())
-                    ItemDataRow["StatusTariffCode"] = "CHANGE";
-                else
-                    ItemDataRow["StatusTariffCode"] = "NOT CHANGE";
-
-                if (txtNewStatCode.Text != ItemDataRow["StatCode"].ToString().TrimEnd())
-                    ItemDataRow["StatusStatCode"] = "CHANGE";
-                else
-                    ItemDataRow["StatusStatCode"] = "NOT CHANGE";
-
-                if (txtNewTariffUnit.Text != ItemDataRow["TariffUnit"].ToString().TrimEnd())
-                    ItemDataRow["StatusTariffUnit"] = "CHANGE";
-                else
-                    ItemDataRow["StatusTariffUnit"] = "NOT CHANGE";
-
-                if (Convert.ToInt32(txtNewDutyRate.Text) != Convert.ToInt32(ItemDataRow["DutyRate"]))
-                    ItemDataRow["StatusDutyRate"] = "CHANGE";
-                else
-                    ItemDataRow["StatusDutyRate"] = "NOT CHANGE";
-
-                DialogResult = DialogResult.OK;
+                for (int i = 0; i < _checkedItems.Count; i++)
+                {
+                    objRowsForUpdate.Add(readRowToObjects((List<object>)_checkedItems[i]));
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            return ItemDataRow;
-        }
-
-        private void FindCheckRow()
-        {
-            _checkedItems.Clear();
-
-            var tableSrc = (DataTable)bs.DataSource;
-            var tableClone = tableSrc.DefaultView.ToTable();
-            var dv = tableClone.DefaultView;
-            dv.RowFilter = "CheckState = true";
-
-            for (int i = 0; i < dv.Count; i++)
-            {
-                var cellCheckState = (Boolean)dv[i]["CheckState"];
-                var id = Convert.ToInt32(dv[i]["TrxId"]);
-
-                if (cellCheckState)
-                {
-                    _checkedItems.Add(id);
-                }
-                else
-                {
-                    try
-                    {
-                        _checkedItems.RemoveAt(id);
-                    }
-                    catch { }
-                }
-            }
+            return objRowsForUpdate;
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -570,7 +761,72 @@ namespace CustomTariff.WinApp
 
         private void button3_Click(object sender, EventArgs e)
         {
-            ResetBoundItem();
+            if (panel1.Tag == null) return;
+
+            var obj = panel1.Tag as List<object>;
+            var row = findDataGridViewRow(Convert.ToInt32(obj[19]));
+            setSelectRowStyle(row.Index, false);
+
+            setCheckBoxOnItemsBinding(false);
+            setCheckBoxStatus(false);
+            dataGridView1.Columns["__col__checkbox"].ReadOnly = true;
+            resetBoundItems();
+            resetCommandFilter();
+            _checkedItems.Clear();
+
+            if (btnCancel.Tag != null)
+            {
+                _bsCustom.Filter = btnCancel.Tag.ToString();
+                lblCommandText.Text = _bsCustom.Filter;
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.FileName = string.Empty;
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                var frm = new downloadForm();
+                frm.DestinationFileName = saveFileDialog1.FileName;
+                frm.DownloadType = "Customer";
+                frm.ShowDialog();
+            }
+        }
+
+        private void setSelectRowStyle(int rowIndex, Boolean status)
+        {
+            if (status)
+            {
+                dataGridView1.Rows[rowIndex].DefaultCellStyle.ForeColor = Color.Purple;
+            }
+            else
+            {
+                dataGridView1.Rows[rowIndex].DefaultCellStyle.ForeColor = Color.Black;
+            }
+        }
+
+        private void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var objRows = e.Argument as List<object>;
+
+            e.Result = _controller.UpdateFields(objRows.ToArray());
+        }
+
+        private void backgroundWorker2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            toolStripProgressBar1.Style = ProgressBarStyle.Blocks;
+            lblStatus.Text = "Done";
+
+            if (Convert.ToBoolean(e.Result))
+            {
+                setCheckBoxStatus(false);
+                btnCancel.Visible = false;
+                btnUpdate.Text = "OK";
+                clearCheckBoxSelected();
+
+                MessageBox.Show("Update successfully.");
+            }
         }
     }
 }

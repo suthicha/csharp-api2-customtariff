@@ -1,24 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace CustomTariff.WinApp
+namespace CustomTariff.Controllers
 {
     public class TariffController
     {
         private readonly string _connectionString;
 
-        public TariffController()
+        public TariffController(string connectionString)
         {
-            _connectionString = ConfigurationManager.AppSettings["DbConnection"];
+            _connectionString = connectionString;
         }
 
-        public DataSet GetAll()
+        public async Task<DataSet> GetAll()
         {
             DataSet ds = new DataSet();
             using (SqlConnection conn = new SqlConnection(_connectionString))
@@ -30,7 +27,7 @@ namespace CustomTariff.WinApp
                 var da = new SqlDataAdapter(cmd);
                 da.Fill(ds);
             }
-
+            await Task.Delay(0);
             return ds;
         }
 
@@ -80,7 +77,7 @@ namespace CustomTariff.WinApp
             return result;
         }
 
-        public bool UpdateFields(params DataRowView[] objs)
+        public bool UpdateFields(params object[] objs)
         {
             bool result = false;
 
@@ -101,18 +98,18 @@ namespace CustomTariff.WinApp
 
                     for (int i = 0; i < objs.Length; i++)
                     {
-                        var obj = objs[i];
-                        cmd.Parameters.AddWithValue("@TrxId", obj["TrxId"]);
-                        cmd.Parameters.AddWithValue("@NewTariffCode", obj["NewTariffCode"]);
-                        cmd.Parameters.AddWithValue("@NewStatCode", obj["NewStatCode"]);
-                        cmd.Parameters.AddWithValue("@NewTariffUnit", obj["NewTariffUnit"]);
-                        cmd.Parameters.AddWithValue("@NewDutyRate", obj["NewDutyRate"]);
-                        cmd.Parameters.AddWithValue("@PdtDescriptionAddon", obj["PdtDescriptionAddon"]);
-                        cmd.Parameters.AddWithValue("@Remark", obj["Remark"]);
-                        cmd.Parameters.AddWithValue("@StatusTariffCode", obj["StatusTariffCode"]);
-                        cmd.Parameters.AddWithValue("@StatusStatCode", obj["StatusStatCode"]);
-                        cmd.Parameters.AddWithValue("@StatusTariffUnit", obj["StatusTariffUnit"]);
-                        cmd.Parameters.AddWithValue("@StatusDutyRate", obj["StatusDutyRate"]);
+                        var obj = objs[i] as List<object>;
+                        cmd.Parameters.AddWithValue("@TrxId", obj[19]);
+                        cmd.Parameters.AddWithValue("@NewTariffCode", obj[8]);
+                        cmd.Parameters.AddWithValue("@NewStatCode", obj[9]);
+                        cmd.Parameters.AddWithValue("@NewTariffUnit", obj[10]);
+                        cmd.Parameters.AddWithValue("@NewDutyRate", obj[11]);
+                        cmd.Parameters.AddWithValue("@PdtDescriptionAddon", obj[13]);
+                        cmd.Parameters.AddWithValue("@Remark", obj[14]);
+                        cmd.Parameters.AddWithValue("@StatusTariffCode", obj[15]);
+                        cmd.Parameters.AddWithValue("@StatusStatCode", obj[16]);
+                        cmd.Parameters.AddWithValue("@StatusTariffUnit", obj[17]);
+                        cmd.Parameters.AddWithValue("@StatusDutyRate", obj[18]);
 
                         cmd.ExecuteNonQuery();
                         cmd.Parameters.Clear();
