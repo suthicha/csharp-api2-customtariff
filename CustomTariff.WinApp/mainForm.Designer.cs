@@ -28,7 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.btnSearch = new System.Windows.Forms.Button();
@@ -54,6 +55,7 @@
             this.btnExportForSystem = new System.Windows.Forms.Button();
             this.btnExportForCustomer = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.chkUsedOldInformation = new System.Windows.Forms.CheckBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.label29 = new System.Windows.Forms.Label();
             this.txtRemark = new System.Windows.Forms.TextBox();
@@ -106,14 +108,14 @@
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.Size = new System.Drawing.Size(962, 200);
             this.dataGridView1.TabIndex = 15;
             // 
@@ -366,6 +368,7 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.chkUsedOldInformation);
             this.panel1.Controls.Add(this.btnCancel);
             this.panel1.Controls.Add(this.label29);
             this.panel1.Controls.Add(this.txtRemark);
@@ -401,6 +404,20 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(962, 179);
             this.panel1.TabIndex = 0;
+            // 
+            // chkUsedOldInformation
+            // 
+            this.chkUsedOldInformation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkUsedOldInformation.AutoSize = true;
+            this.chkUsedOldInformation.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.chkUsedOldInformation.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.chkUsedOldInformation.Location = new System.Drawing.Point(326, 147);
+            this.chkUsedOldInformation.Name = "chkUsedOldInformation";
+            this.chkUsedOldInformation.Size = new System.Drawing.Size(146, 17);
+            this.chkUsedOldInformation.TabIndex = 36;
+            this.chkUsedOldInformation.Text = "Used Old Information";
+            this.chkUsedOldInformation.UseVisualStyleBackColor = true;
+            this.chkUsedOldInformation.Click += new System.EventHandler(this.chkUsedOldInformation_Click);
             // 
             // btnCancel
             // 
@@ -450,11 +467,11 @@
             this.label28.AutoSize = true;
             this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label28.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.label28.Location = new System.Drawing.Point(49, 117);
+            this.label28.Location = new System.Drawing.Point(1, 117);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(82, 16);
+            this.label28.Size = new System.Drawing.Size(133, 16);
             this.label28.TabIndex = 32;
-            this.label28.Text = "Description :";
+            this.label28.Text = "Description (Addon) :";
             // 
             // txtDescriptionAddon
             // 
@@ -806,6 +823,7 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.txtTariffCode);
             this.Controls.Add(this.btnSearch);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "mainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Customs Tariff 2017";
@@ -886,6 +904,7 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.CheckBox chkAutoFilterOnSelected;
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
+        private System.Windows.Forms.CheckBox chkUsedOldInformation;
     }
 }
 

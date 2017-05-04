@@ -22,7 +22,7 @@ namespace CustomTariff.Controllers
             {
                 conn.Open();
                 var cmd = conn.CreateCommand();
-                cmd.CommandText = @"select convert(bit,0) As CheckState,* from ProductTariffs Order by TrxId asc";
+                cmd.CommandText = @"select convert(bit,0) As CheckState,* from ProductTariffs where createdate <= '20161231' Order by TrxId asc";
 
                 var da = new SqlDataAdapter(cmd);
                 da.Fill(ds);

@@ -764,8 +764,8 @@ namespace CustomTariff.WinApp
             if (panel1.Tag == null) return;
 
             var obj = panel1.Tag as List<object>;
-            var row = findDataGridViewRow(Convert.ToInt32(obj[19]));
-            setSelectRowStyle(row.Index, false);
+            // var row = findDataGridViewRow(Convert.ToInt32(obj[19]));
+            // setSelectRowStyle(row.Index, false);
 
             setCheckBoxOnItemsBinding(false);
             setCheckBoxStatus(false);
@@ -773,6 +773,7 @@ namespace CustomTariff.WinApp
             resetBoundItems();
             resetCommandFilter();
             _checkedItems.Clear();
+            chkUsedOldInformation.Checked = false;
 
             if (btnCancel.Tag != null)
             {
@@ -817,6 +818,7 @@ namespace CustomTariff.WinApp
         {
             toolStripProgressBar1.Style = ProgressBarStyle.Blocks;
             lblStatus.Text = "Done";
+            chkUsedOldInformation.Checked = false;
 
             if (Convert.ToBoolean(e.Result))
             {
@@ -826,6 +828,23 @@ namespace CustomTariff.WinApp
                 clearCheckBoxSelected();
 
                 MessageBox.Show("Update successfully.");
+            }
+        }
+
+        private void chkUsedOldInformation_Click(object sender, EventArgs e)
+        {
+            if (panel1.Tag == null) return;
+            if (chkUsedOldInformation.CheckState == CheckState.Checked)
+            {
+                txtNewStatCode.Text = lblStatCode.Text;
+                txtNewTariffUnit.Text = lblTariffUnit.Text;
+                txtNewDutyRate.Text = lblDutyRate.Text;
+            }
+            else
+            {
+                txtNewStatCode.Text = "";
+                txtNewTariffUnit.Text = "";
+                txtNewDutyRate.Text = "";
             }
         }
     }
