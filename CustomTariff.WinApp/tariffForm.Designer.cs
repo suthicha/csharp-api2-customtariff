@@ -60,6 +60,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.txtNewTariffCode = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.chkUsedOldInformation = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -79,6 +80,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.chkUsedOldInformation);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.label29);
             this.panel1.Controls.Add(this.label7);
@@ -424,6 +426,20 @@
             this.label8.TabIndex = 8;
             this.label8.Text = "NEW : ";
             // 
+            // chkUsedOldInformation
+            // 
+            this.chkUsedOldInformation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkUsedOldInformation.AutoSize = true;
+            this.chkUsedOldInformation.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.chkUsedOldInformation.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.chkUsedOldInformation.Location = new System.Drawing.Point(364, 177);
+            this.chkUsedOldInformation.Name = "chkUsedOldInformation";
+            this.chkUsedOldInformation.Size = new System.Drawing.Size(146, 17);
+            this.chkUsedOldInformation.TabIndex = 37;
+            this.chkUsedOldInformation.Text = "Used Old Information";
+            this.chkUsedOldInformation.UseVisualStyleBackColor = true;
+            this.chkUsedOldInformation.Click += new System.EventHandler(this.chkUsedOldInformation_Click);
+            // 
             // tariffForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -474,5 +490,6 @@
         private System.Windows.Forms.TextBox txtNewTariffCode;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CheckBox chkUsedOldInformation;
     }
 }

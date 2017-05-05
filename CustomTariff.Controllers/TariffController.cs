@@ -94,22 +94,22 @@ namespace CustomTariff.Controllers
                     cmd.CommandText = @"Update ProductTariffs Set NewTariffCode=@NewTariffCode, NewStatCode=@NewStatCode,
                     NewTariffUnit=@NewTariffUnit, NewDutyRate=@NewDutyRate, PdtDescriptionAddon=@PdtDescriptionAddon,
                     StatusTariffCode=@StatusTariffCode, StatusStatCode=@StatusStatCode, StatusTariffUnit=@StatusTariffUnit,
-                    StatusDutyRate=@StatusDutyRate, Remark=@Remark, UpdateDate=GETDATE() WHERE TrxId=@TrxId";
+                    StatusDutyRate=@StatusDutyRate, Remark=@Remark, UpdateDate=GETDATE(), UpdateStatus='A' WHERE TrxId=@TrxId";
 
                     for (int i = 0; i < objs.Length; i++)
                     {
                         var obj = objs[i] as List<object>;
-                        cmd.Parameters.AddWithValue("@TrxId", obj[19]);
-                        cmd.Parameters.AddWithValue("@NewTariffCode", obj[8]);
-                        cmd.Parameters.AddWithValue("@NewStatCode", obj[9]);
-                        cmd.Parameters.AddWithValue("@NewTariffUnit", obj[10]);
-                        cmd.Parameters.AddWithValue("@NewDutyRate", obj[11]);
-                        cmd.Parameters.AddWithValue("@PdtDescriptionAddon", obj[13]);
-                        cmd.Parameters.AddWithValue("@Remark", obj[14]);
-                        cmd.Parameters.AddWithValue("@StatusTariffCode", obj[15]);
-                        cmd.Parameters.AddWithValue("@StatusStatCode", obj[16]);
-                        cmd.Parameters.AddWithValue("@StatusTariffUnit", obj[17]);
-                        cmd.Parameters.AddWithValue("@StatusDutyRate", obj[18]);
+                        cmd.Parameters.AddWithValue("@TrxId", obj[20]);
+                        cmd.Parameters.AddWithValue("@NewTariffCode", obj[9]);
+                        cmd.Parameters.AddWithValue("@NewStatCode", obj[10]);
+                        cmd.Parameters.AddWithValue("@NewTariffUnit", obj[11]);
+                        cmd.Parameters.AddWithValue("@NewDutyRate", obj[12]);
+                        cmd.Parameters.AddWithValue("@PdtDescriptionAddon", obj[14]);
+                        cmd.Parameters.AddWithValue("@Remark", obj[15]);
+                        cmd.Parameters.AddWithValue("@StatusTariffCode", obj[16]);
+                        cmd.Parameters.AddWithValue("@StatusStatCode", obj[17]);
+                        cmd.Parameters.AddWithValue("@StatusTariffUnit", obj[18]);
+                        cmd.Parameters.AddWithValue("@StatusDutyRate", obj[19]);
 
                         cmd.ExecuteNonQuery();
                         cmd.Parameters.Clear();

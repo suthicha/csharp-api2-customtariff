@@ -102,5 +102,21 @@ namespace CustomTariff.WinApp
         {
             DialogResult = DialogResult.Cancel;
         }
+
+        private void chkUsedOldInformation_Click(object sender, EventArgs e)
+        {
+            if (chkUsedOldInformation.CheckState == CheckState.Checked)
+            {
+                txtNewStatCode.Text = lblStatCode.Text;
+                txtNewTariffUnit.Text = lblTariffUnit.Text;
+                txtNewDutyRate.Text = lblDutyRate.Text;
+            }
+            else
+            {
+                txtNewStatCode.Text = "";
+                txtNewTariffUnit.Text = "";
+                txtNewDutyRate.Text = "";
+            }
+        }
     }
 }

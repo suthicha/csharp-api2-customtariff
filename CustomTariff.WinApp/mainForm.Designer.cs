@@ -33,7 +33,7 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.txtTariffCode = new System.Windows.Forms.TextBox();
+            this.txtTariffCodeOld = new System.Windows.Forms.TextBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
@@ -91,6 +91,12 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.chkAutoFilterOnSelected = new System.Windows.Forms.CheckBox();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
+            this.label10 = new System.Windows.Forms.Label();
+            this.txtTariffCodeNew = new System.Windows.Forms.TextBox();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lblAcceptOrder = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lblRemainOrder = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -117,7 +123,7 @@
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.Size = new System.Drawing.Size(962, 200);
-            this.dataGridView1.TabIndex = 15;
+            this.dataGridView1.TabIndex = 0;
             // 
             // backgroundWorker1
             // 
@@ -127,24 +133,24 @@
             // btnSearch
             // 
             this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnSearch.Location = new System.Drawing.Point(780, 92);
+            this.btnSearch.Location = new System.Drawing.Point(897, 90);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 25);
-            this.btnSearch.TabIndex = 4;
+            this.btnSearch.TabIndex = 5;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.button1_Click);
             // 
-            // txtTariffCode
+            // txtTariffCodeOld
             // 
-            this.txtTariffCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtTariffCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtTariffCode.Location = new System.Drawing.Point(125, 93);
-            this.txtTariffCode.MaxLength = 35;
-            this.txtTariffCode.Name = "txtTariffCode";
-            this.txtTariffCode.Size = new System.Drawing.Size(177, 22);
-            this.txtTariffCode.TabIndex = 2;
-            this.txtTariffCode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ConditionFilter_KeyDown);
+            this.txtTariffCodeOld.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtTariffCodeOld.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtTariffCodeOld.Location = new System.Drawing.Point(125, 93);
+            this.txtTariffCodeOld.MaxLength = 35;
+            this.txtTariffCodeOld.Name = "txtTariffCodeOld";
+            this.txtTariffCodeOld.Size = new System.Drawing.Size(150, 22);
+            this.txtTariffCodeOld.TabIndex = 2;
+            this.txtTariffCodeOld.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ConditionFilter_KeyDown);
             // 
             // statusStrip1
             // 
@@ -154,7 +160,11 @@
             this.toolStripProgressBar1,
             this.lblCommandText,
             this.toolStripStatusLabel3,
-            this.lblTotalRecords});
+            this.lblTotalRecords,
+            this.toolStripStatusLabel1,
+            this.lblAcceptOrder,
+            this.toolStripStatusLabel2,
+            this.lblRemainOrder});
             this.statusStrip1.Location = new System.Drawing.Point(0, 536);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
@@ -181,7 +191,7 @@
             this.lblCommandText.Font = new System.Drawing.Font("Tahoma", 7.95F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.lblCommandText.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.lblCommandText.Name = "lblCommandText";
-            this.lblCommandText.Size = new System.Drawing.Size(695, 20);
+            this.lblCommandText.Size = new System.Drawing.Size(366, 20);
             this.lblCommandText.Spring = true;
             // 
             // toolStripStatusLabel3
@@ -194,9 +204,10 @@
             // lblTotalRecords
             // 
             this.lblTotalRecords.AutoSize = false;
+            this.lblTotalRecords.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lblTotalRecords.ForeColor = System.Drawing.Color.Blue;
             this.lblTotalRecords.Name = "lblTotalRecords";
-            this.lblTotalRecords.Size = new System.Drawing.Size(90, 20);
-            this.lblTotalRecords.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblTotalRecords.Size = new System.Drawing.Size(120, 20);
             // 
             // cboTariffStatus
             // 
@@ -212,7 +223,7 @@
             "NOT CHANGE"});
             this.cboTariffStatus.Location = new System.Drawing.Point(125, 63);
             this.cboTariffStatus.Name = "cboTariffStatus";
-            this.cboTariffStatus.Size = new System.Drawing.Size(177, 24);
+            this.cboTariffStatus.Size = new System.Drawing.Size(150, 24);
             this.cboTariffStatus.TabIndex = 5;
             // 
             // label1
@@ -229,7 +240,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label2.Location = new System.Drawing.Point(321, 67);
+            this.label2.Location = new System.Drawing.Point(291, 67);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(108, 16);
             this.label2.TabIndex = 6;
@@ -239,10 +250,10 @@
             // 
             this.txtCompanyCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCompanyCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtCompanyCode.Location = new System.Drawing.Point(432, 64);
+            this.txtCompanyCode.Location = new System.Drawing.Point(402, 65);
             this.txtCompanyCode.MaxLength = 2;
             this.txtCompanyCode.Name = "txtCompanyCode";
-            this.txtCompanyCode.Size = new System.Drawing.Size(100, 22);
+            this.txtCompanyCode.Size = new System.Drawing.Size(150, 22);
             this.txtCompanyCode.TabIndex = 0;
             this.txtCompanyCode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ConditionFilter_KeyDown);
             // 
@@ -253,7 +264,7 @@
             this.txtDivisionCode.Location = new System.Drawing.Point(674, 64);
             this.txtDivisionCode.MaxLength = 2;
             this.txtDivisionCode.Name = "txtDivisionCode";
-            this.txtDivisionCode.Size = new System.Drawing.Size(100, 22);
+            this.txtDivisionCode.Size = new System.Drawing.Size(145, 22);
             this.txtDivisionCode.TabIndex = 1;
             this.txtDivisionCode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ConditionFilter_KeyDown);
             // 
@@ -270,18 +281,18 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label4.Location = new System.Drawing.Point(14, 96);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(80, 16);
+            this.label4.Size = new System.Drawing.Size(105, 15);
             this.label4.TabIndex = 8;
-            this.label4.Text = "Tariff Code :";
+            this.label4.Text = "Tariff Code (OLD):";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label5.Location = new System.Drawing.Point(321, 96);
+            this.label5.Location = new System.Drawing.Point(579, 93);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(82, 16);
             this.label5.TabIndex = 9;
@@ -291,11 +302,11 @@
             // 
             this.txtDescription.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtDescription.Location = new System.Drawing.Point(432, 93);
+            this.txtDescription.Location = new System.Drawing.Point(674, 90);
             this.txtDescription.MaxLength = 100;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(342, 22);
-            this.txtDescription.TabIndex = 3;
+            this.txtDescription.Size = new System.Drawing.Size(217, 22);
+            this.txtDescription.TabIndex = 4;
             this.txtDescription.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ConditionFilter_KeyDown);
             // 
             // label6
@@ -317,7 +328,7 @@
             this.btnLoadCustomsTariff.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.btnLoadCustomsTariff.Location = new System.Drawing.Point(16, 12);
             this.btnLoadCustomsTariff.Name = "btnLoadCustomsTariff";
-            this.btnLoadCustomsTariff.Size = new System.Drawing.Size(285, 28);
+            this.btnLoadCustomsTariff.Size = new System.Drawing.Size(244, 28);
             this.btnLoadCustomsTariff.TabIndex = 12;
             this.btnLoadCustomsTariff.Text = "Load Customs Tariff ...";
             this.btnLoadCustomsTariff.UseVisualStyleBackColor = false;
@@ -797,12 +808,67 @@
             this.backgroundWorker2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker2_DoWork);
             this.backgroundWorker2.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker2_RunWorkerCompleted);
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label10.Location = new System.Drawing.Point(288, 96);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(108, 15);
+            this.label10.TabIndex = 37;
+            this.label10.Text = "Tariff Code (NEW):";
+            // 
+            // txtTariffCodeNew
+            // 
+            this.txtTariffCodeNew.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtTariffCodeNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtTariffCodeNew.Location = new System.Drawing.Point(402, 93);
+            this.txtTariffCodeNew.MaxLength = 35;
+            this.txtTariffCodeNew.Name = "txtTariffCodeNew";
+            this.txtTariffCodeNew.Size = new System.Drawing.Size(150, 22);
+            this.txtTariffCodeNew.TabIndex = 3;
+            this.txtTariffCodeNew.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ConditionFilter_KeyDown);
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.toolStripStatusLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(44, 20);
+            this.toolStripStatusLabel1.Text = "Accept";
+            // 
+            // lblAcceptOrder
+            // 
+            this.lblAcceptOrder.AutoSize = false;
+            this.lblAcceptOrder.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lblAcceptOrder.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.lblAcceptOrder.Name = "lblAcceptOrder";
+            this.lblAcceptOrder.Size = new System.Drawing.Size(109, 20);
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.toolStripStatusLabel2.ForeColor = System.Drawing.Color.Fuchsia;
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(46, 20);
+            this.toolStripStatusLabel2.Text = "Remain";
+            // 
+            // lblRemainOrder
+            // 
+            this.lblRemainOrder.AutoSize = false;
+            this.lblRemainOrder.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lblRemainOrder.ForeColor = System.Drawing.Color.Fuchsia;
+            this.lblRemainOrder.Name = "lblRemainOrder";
+            this.lblRemainOrder.Size = new System.Drawing.Size(100, 20);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(221)))), ((int)(((byte)(238)))));
             this.ClientSize = new System.Drawing.Size(984, 561);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.txtTariffCodeNew);
             this.Controls.Add(this.chkAutoFilterOnSelected);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.linkLabel1);
@@ -821,7 +887,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cboTariffStatus);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.txtTariffCode);
+            this.Controls.Add(this.txtTariffCodeOld);
             this.Controls.Add(this.btnSearch);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "mainForm";
@@ -847,7 +913,7 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.TextBox txtTariffCode;
+        private System.Windows.Forms.TextBox txtTariffCodeOld;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel lblStatus;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
@@ -905,6 +971,12 @@
         private System.Windows.Forms.CheckBox chkAutoFilterOnSelected;
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
         private System.Windows.Forms.CheckBox chkUsedOldInformation;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox txtTariffCodeNew;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel lblAcceptOrder;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.ToolStripStatusLabel lblRemainOrder;
     }
 }
 

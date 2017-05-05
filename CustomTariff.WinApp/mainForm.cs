@@ -88,7 +88,7 @@ namespace CustomTariff.WinApp
                     _checkedItems.ForEach(q =>
                     {
                         var obj = q as List<object>;
-                        if (Convert.ToInt32(obj[19]) == Convert.ToInt32(drv["TrxId"]))
+                        if (Convert.ToInt32(obj[20]) == Convert.ToInt32(drv["TrxId"]))
                         {
                             seekItem = true;
                         }
@@ -96,7 +96,7 @@ namespace CustomTariff.WinApp
 
                     if (seekItem)
                     {
-                        var seekRow = _checkedItems.Find(q => Convert.ToInt32(((List<Object>)q)[19]) == Convert.ToInt32(drv["TrxId"]));
+                        var seekRow = _checkedItems.Find(q => Convert.ToInt32(((List<Object>)q)[20]) == Convert.ToInt32(drv["TrxId"]));
                         _checkedItems.Remove(seekRow);
                     }
                 }
@@ -110,7 +110,7 @@ namespace CustomTariff.WinApp
 
         private void HandlerDataGridViewCellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex >= 1 && e.ColumnIndex <= 7 && e.RowIndex >= 0)
+            if (e.ColumnIndex >= 1 && e.ColumnIndex <= 8 && e.RowIndex >= 0)
             {
                 if (!splitContainer1.Panel2Collapsed)
                     VisiblePanelDetail();
@@ -157,7 +157,7 @@ namespace CustomTariff.WinApp
         {
             if (panel1.Tag != null) return;
 
-            if (e.ColumnIndex >= 8 && e.ColumnIndex <= 11 && e.RowIndex >= 0)
+            if (e.ColumnIndex >= 9 && e.ColumnIndex <= 12 && e.RowIndex >= 0)
             {
                 dataGridView1.Columns["__col__checkbox"].ReadOnly = false;
                 var drv = (DataRowView)dataGridView1.CurrentRow.DataBoundItem;
@@ -246,7 +246,7 @@ namespace CustomTariff.WinApp
             for (int i = 0; i < _checkedItems.Count; i++)
             {
                 var items = _checkedItems[i] as List<object>;
-                var row = findDataGridViewRow(Convert.ToInt32(items[19]));
+                var row = findDataGridViewRow(Convert.ToInt32(items[20]));
                 row.Cells[0].Value = false;
             }
             _checkedItems.Clear();
@@ -255,12 +255,12 @@ namespace CustomTariff.WinApp
         private void HandlerBindingSourceListChanged(object sender, ListChangedEventArgs e)
         {
             lblStatus.Text = "Done";
-            lblTotalRecords.Text = string.Format("{0} Rec.", Convert.ToDecimal(_bsCustom.Count).ToString("#,##0"));
+            lblTotalRecords.Text = string.Format("{0}", Convert.ToDecimal(_bsCustom.Count).ToString("#,##0"));
 
             if (panel1.Tag != null)
             {
                 var obj = panel1.Tag as List<object>;
-                var row = findDataGridViewRow(Convert.ToInt32(obj[19]));
+                var row = findDataGridViewRow(Convert.ToInt32(obj[20]));
                 dataGridView1.CurrentCell = dataGridView1[0, row.Index];
 
                 setSelectRowStyle(row.Index, true);
@@ -311,6 +311,15 @@ namespace CustomTariff.WinApp
             // backgroundWorker1.RunWorkerAsync();
         }
 
+        private void SumAcceptTotalView()
+        {
+            _bsCustom.EndEdit();
+            var acceptTotal = _dsResult.Tables[0].Select("UpdateStatus='A'").Count();
+            var remainTotal = _dsResult.Tables[0].Rows.Count - acceptTotal;
+            lblAcceptOrder.Text = Convert.ToDecimal(acceptTotal).ToString("N0");
+            lblRemainOrder.Text = Convert.ToDecimal(remainTotal).ToString("N0");
+        }
+
         private async void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             try
@@ -333,6 +342,7 @@ namespace CustomTariff.WinApp
                 dataGridView1.DataSource = _bsCustom;
 
                 resetBoundItems();
+                SumAcceptTotalView();
             }
             catch (Exception ex)
             {
@@ -352,7 +362,8 @@ namespace CustomTariff.WinApp
                 ConditionFilter(cboTariffStatus.Text,
                     txtCompanyCode.Text,
                     txtDivisionCode.Text,
-                    txtTariffCode.Text,
+                    txtTariffCodeOld.Text,
+                    txtTariffCodeNew.Text,
                     txtDescription.Text);
 
                 var chk = ((CheckBox)dataGridView1.Controls.Find("checkboxHeader", true)[0]);
@@ -393,6 +404,7 @@ namespace CustomTariff.WinApp
             dgv.Columns.Add(chkCol);
             dgv.Controls.Add(checkboxHeader);
 
+            dgv.Columns.Add(createDataGridViewTextBoxColumn("STA", "UpdateStatus", 40, DataGridViewContentAlignment.MiddleCenter));
             dgv.Columns.Add(createDataGridViewTextBoxColumn("comcd", "CompanyCode", 60, DataGridViewContentAlignment.MiddleCenter));
             dgv.Columns.Add(createDataGridViewTextBoxColumn("divcd", "DivisionCode", 60, DataGridViewContentAlignment.MiddleCenter));
             dgv.Columns.Add(createDataGridViewTextBoxColumn("FullPartName", "FullPartName", 250));
@@ -457,7 +469,7 @@ namespace CustomTariff.WinApp
         private void setCheckBoxOnItemsBinding(Boolean checkState)
         {
             var cells = panel1.Tag as List<Object>;
-            var newTariffCode = cells.ElementAt(8).ToString();
+            var newTariffCode = cells.ElementAt(9).ToString();
 
             if (checkState)
             {
@@ -509,7 +521,8 @@ namespace CustomTariff.WinApp
             ConditionFilter(cboTariffStatus.Text,
                     txtCompanyCode.Text,
                     txtDivisionCode.Text,
-                    txtTariffCode.Text,
+                    txtTariffCodeOld.Text,
+                    txtTariffCodeNew.Text,
                     txtDescription.Text);
 
             resetBoundItems();
@@ -526,7 +539,8 @@ namespace CustomTariff.WinApp
         private void ConditionFilter(string tariffStatus,
             string companyCode,
             string divisionCode,
-            string tariffCode,
+            string oldTariffCode,
+            string newTariffCode,
             string description)
         {
             if (cboTariffStatus.Text == "")
@@ -549,16 +563,29 @@ namespace CustomTariff.WinApp
                 if (!string.IsNullOrEmpty(divisionCode))
                     commandFilter += string.Format("DivisionCode = '{0}' AND ", RegText(divisionCode));
 
-                if (tariffCode != "")
+                if (oldTariffCode != "")
                 {
                     if (commandFilter.Length > 0)
                     {
                         splitCmd = commandFilter.Substring(commandFilter.Length - 5, 4);
-                        commandFilter += string.Format("{0}NewTariffCode LIKE '{1}%' AND ", splitCmd.Contains("AND") ? "" : "AND ", RegText(tariffCode));
+                        commandFilter += string.Format("{0}TariffCode LIKE '{1}%' AND ", splitCmd.Contains("AND") ? "" : "AND ", RegText(oldTariffCode));
                     }
                     else
                     {
-                        commandFilter = string.Format("NewTariffCode LIKE '{0}%' AND ", tariffCode);
+                        commandFilter = string.Format("TariffCode LIKE '{0}%' AND ", oldTariffCode);
+                    }
+                }
+
+                if (newTariffCode != "")
+                {
+                    if (commandFilter.Length > 0)
+                    {
+                        splitCmd = commandFilter.Substring(commandFilter.Length - 5, 4);
+                        commandFilter += string.Format("{0}NewTariffCode LIKE '{1}%' AND ", splitCmd.Contains("AND") ? "" : "AND ", RegText(newTariffCode));
+                    }
+                    else
+                    {
+                        commandFilter = string.Format("NewTariffCode LIKE '{0}%' AND ", newTariffCode);
                     }
                 }
 
@@ -612,6 +639,9 @@ namespace CustomTariff.WinApp
 
             backgroundWorker1.RunWorkerAsync();
             _bsCustom.DataSource = null;
+
+            lblAcceptOrder.Text = "0";
+            lblRemainOrder.Text = "0";
 
             this.lblStatus.Text = "Loading...";
             this.toolStripProgressBar1.Style = ProgressBarStyle.Marquee;
@@ -691,7 +721,7 @@ namespace CustomTariff.WinApp
         private List<object> readRowToObjects(List<object> objRow)
         {
             int rowIndex = -1;
-            int trxid = Convert.ToInt32(objRow[19]);
+            int trxid = Convert.ToInt32(objRow[20]);
             DataGridViewRow row = findDataGridViewRow(trxid);
 
             if (row != null)
@@ -699,6 +729,7 @@ namespace CustomTariff.WinApp
                 rowIndex = row.Index;
 
                 var cells = dataGridView1.Rows[rowIndex].Cells;
+                cells["__col__UpdateStatus"].Value = "A";
                 cells["__col__NewTariffCode"].Value = txtNewTariffCode.Text;
                 cells["__col__NewStatCode"].Value = txtNewStatCode.Text;
                 cells["__col__NewTariffUnit"].Value = txtNewTariffUnit.Text;
@@ -743,7 +774,7 @@ namespace CustomTariff.WinApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("getRowsToUpdate : " + ex.Message);
             }
             return objRowsForUpdate;
         }
@@ -764,9 +795,6 @@ namespace CustomTariff.WinApp
             if (panel1.Tag == null) return;
 
             var obj = panel1.Tag as List<object>;
-            // var row = findDataGridViewRow(Convert.ToInt32(obj[19]));
-            // setSelectRowStyle(row.Index, false);
-
             setCheckBoxOnItemsBinding(false);
             setCheckBoxStatus(false);
             dataGridView1.Columns["__col__checkbox"].ReadOnly = true;
@@ -809,9 +837,16 @@ namespace CustomTariff.WinApp
 
         private void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
         {
-            var objRows = e.Argument as List<object>;
+            try
+            {
+                var objRows = e.Argument as List<object>;
 
-            e.Result = _controller.UpdateFields(objRows.ToArray());
+                e.Result = _controller.UpdateFields(objRows.ToArray());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Updated Error : " + ex.Message);
+            }
         }
 
         private void backgroundWorker2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -826,7 +861,7 @@ namespace CustomTariff.WinApp
                 btnCancel.Visible = false;
                 btnUpdate.Text = "OK";
                 clearCheckBoxSelected();
-
+                SumAcceptTotalView();
                 MessageBox.Show("Update successfully.");
             }
         }
