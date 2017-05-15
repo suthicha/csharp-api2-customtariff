@@ -449,9 +449,9 @@ namespace CustomTariff.WinApp
         {
             if (panel1.Tag == null) return;
 
-            if (dataGridView1.RowCount >= 5000)
+            if (dataGridView1.RowCount >= 10000)
             {
-                var dlg = MessageBox.Show("Are you select more than 5,000 items?",
+                var dlg = MessageBox.Show("Are you select more than 10,000 items?",
                     "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (dlg == DialogResult.No)
