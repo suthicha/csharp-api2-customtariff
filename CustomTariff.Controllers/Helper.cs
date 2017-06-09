@@ -26,6 +26,7 @@ namespace CustomTariff.Controllers
 
             var drv = (DataRowView)currentRow.DataBoundItem;
             objs.Add(drv["TrxId"]);
+            objs.Add(currentRow.Index);
 
             return objs;
         }

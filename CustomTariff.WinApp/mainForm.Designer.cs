@@ -40,6 +40,10 @@
             this.lblCommandText = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblTotalRecords = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lblAcceptOrder = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lblRemainOrder = new System.Windows.Forms.ToolStripStatusLabel();
             this.cboTariffStatus = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -93,10 +97,7 @@
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.label10 = new System.Windows.Forms.Label();
             this.txtTariffCodeNew = new System.Windows.Forms.TextBox();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.lblAcceptOrder = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.lblRemainOrder = new System.Windows.Forms.ToolStripStatusLabel();
+            this.chkUnComplete = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -209,6 +210,38 @@
             this.lblTotalRecords.Name = "lblTotalRecords";
             this.lblTotalRecords.Size = new System.Drawing.Size(120, 20);
             // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.toolStripStatusLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(44, 20);
+            this.toolStripStatusLabel1.Text = "Accept";
+            // 
+            // lblAcceptOrder
+            // 
+            this.lblAcceptOrder.AutoSize = false;
+            this.lblAcceptOrder.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lblAcceptOrder.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.lblAcceptOrder.Name = "lblAcceptOrder";
+            this.lblAcceptOrder.Size = new System.Drawing.Size(109, 20);
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.toolStripStatusLabel2.ForeColor = System.Drawing.Color.Fuchsia;
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(46, 20);
+            this.toolStripStatusLabel2.Text = "Remain";
+            // 
+            // lblRemainOrder
+            // 
+            this.lblRemainOrder.AutoSize = false;
+            this.lblRemainOrder.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lblRemainOrder.ForeColor = System.Drawing.Color.Fuchsia;
+            this.lblRemainOrder.Name = "lblRemainOrder";
+            this.lblRemainOrder.Size = new System.Drawing.Size(100, 20);
+            // 
             // cboTariffStatus
             // 
             this.cboTariffStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -220,7 +253,8 @@
             "ADD",
             "CHANGE",
             "NOT FOUND",
-            "NOT CHANGE"});
+            "NOT CHANGE",
+            "NEW 2017"});
             this.cboTariffStatus.Location = new System.Drawing.Point(125, 63);
             this.cboTariffStatus.Name = "cboTariffStatus";
             this.cboTariffStatus.Size = new System.Drawing.Size(150, 24);
@@ -829,37 +863,17 @@
             this.txtTariffCodeNew.TabIndex = 3;
             this.txtTariffCodeNew.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ConditionFilter_KeyDown);
             // 
-            // toolStripStatusLabel1
+            // chkUnComplete
             // 
-            this.toolStripStatusLabel1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
-            this.toolStripStatusLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(44, 20);
-            this.toolStripStatusLabel1.Text = "Accept";
-            // 
-            // lblAcceptOrder
-            // 
-            this.lblAcceptOrder.AutoSize = false;
-            this.lblAcceptOrder.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lblAcceptOrder.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.lblAcceptOrder.Name = "lblAcceptOrder";
-            this.lblAcceptOrder.Size = new System.Drawing.Size(109, 20);
-            // 
-            // toolStripStatusLabel2
-            // 
-            this.toolStripStatusLabel2.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
-            this.toolStripStatusLabel2.ForeColor = System.Drawing.Color.Fuchsia;
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(46, 20);
-            this.toolStripStatusLabel2.Text = "Remain";
-            // 
-            // lblRemainOrder
-            // 
-            this.lblRemainOrder.AutoSize = false;
-            this.lblRemainOrder.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lblRemainOrder.ForeColor = System.Drawing.Color.Fuchsia;
-            this.lblRemainOrder.Name = "lblRemainOrder";
-            this.lblRemainOrder.Size = new System.Drawing.Size(100, 20);
+            this.chkUnComplete.AutoSize = true;
+            this.chkUnComplete.Font = new System.Drawing.Font("Tahoma", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.chkUnComplete.Location = new System.Drawing.Point(402, 18);
+            this.chkUnComplete.Name = "chkUnComplete";
+            this.chkUnComplete.Size = new System.Drawing.Size(148, 20);
+            this.chkUnComplete.TabIndex = 38;
+            this.chkUnComplete.Text = "รายการคงเหลือทั้งหมด";
+            this.chkUnComplete.UseVisualStyleBackColor = true;
+            this.chkUnComplete.Click += new System.EventHandler(this.chkUnComplete_Click);
             // 
             // mainForm
             // 
@@ -867,6 +881,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(221)))), ((int)(((byte)(238)))));
             this.ClientSize = new System.Drawing.Size(984, 561);
+            this.Controls.Add(this.chkUnComplete);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.txtTariffCodeNew);
             this.Controls.Add(this.chkAutoFilterOnSelected);
@@ -977,6 +992,7 @@
         private System.Windows.Forms.ToolStripStatusLabel lblAcceptOrder;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ToolStripStatusLabel lblRemainOrder;
+        private System.Windows.Forms.CheckBox chkUnComplete;
     }
 }
 
